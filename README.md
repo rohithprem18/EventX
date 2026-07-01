@@ -40,36 +40,6 @@ A **modern, production‑ready** front‑end demo of a high‑concurrency event 
 
 ---
 
-## Architecture Overview
-
-```mermaid
-flowchart LR
-    subgraph UI[React Front‑End]
-        Home[HomePage] --> Event[EventPage]
-        Event --> Booking[BookingPage]
-        Home --> Login[LoginPage]
-        Home --> Signup[SignupPage]
-        Home --> Dashboard[UserDashboard]
-        Dashboard --> Admin[AdminDashboard]
-    end
-    subgraph State[State Management]
-        Auth[useAuth Hook]
-        BookingStore[useBookingStore Hook]
-        Query[React Query]
-    end
-    UI --> State
-    State --> Mock[Mock Data (src/data)]
-    Booking --> PDF[generateTicketPDF Utility]
-```
-
-- **Components** live under `src/components` (e.g., `EventCard`, `Navbar`, `AnimatedPage`).
-- **Pages** under `src/pages` handle routing via **React Router**.
-- **Hooks** encapsulate authentication and booking logic.
-- **Utilities** such as `generateTicketPDF` create PDFs on the client side.
-- **Styling** is handled by **Tailwind CSS** with custom `glass-card` and gradient utilities.
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
