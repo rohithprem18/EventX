@@ -8,8 +8,8 @@ import { format } from 'date-fns';
 import { generateTicketPDF } from '@/utils/generateTicketPDF';
 
 const statIcons = [
-  { icon: ShoppingBag, gradient: 'var(--gradient-primary)', glow: 'hsla(265, 90%, 65%, 0.2)' },
-  { icon: CreditCard, gradient: 'var(--gradient-accent)', glow: 'hsla(15, 90%, 62%, 0.2)' },
+  { icon: ShoppingBag, gradient: 'var(--gradient-primary)', glow: 'hsla(265, 68%, 60%, 0.2)' },
+  { icon: CreditCard, gradient: 'var(--gradient-accent)', glow: 'hsla(15, 66%, 55%, 0.2)' },
   { icon: TrendingUp, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)' },
 ];
 
@@ -96,7 +96,7 @@ const UserDashboard = () => {
                       </p>
                       <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm">
                         <span className="text-muted-foreground">
-                          ID: <span className="font-mono font-bold gradient-text">{booking.ticketId}</span>
+                          ID: <span className="font-mono font-bold text-primary">{booking.ticketId}</span>
                         </span>
                         <span className="text-muted-foreground">
                           Seats: <span className="font-mono font-semibold">{booking.seatNumbers.join(', ')}</span>

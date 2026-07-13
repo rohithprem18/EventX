@@ -28,9 +28,9 @@ const SignupPage = () => {
       }}>
         {/* Animated orbs */}
         <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full opacity-[0.1] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(15, 90%, 62%)' }} />
+          style={{ background: 'hsl(15, 66%, 55%)' }} />
         <div className="absolute bottom-1/4 left-1/3 w-[250px] h-[250px] rounded-full opacity-[0.08] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(265, 90%, 65%)', animationDelay: '2s' }} />
+          style={{ background: 'hsl(265, 68%, 60%)', animationDelay: '2s' }} />
         
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.05]"
@@ -41,12 +41,13 @@ const SignupPage = () => {
 
         <div className="relative z-10 text-center px-12">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8"
-            style={{ background: 'var(--gradient-accent)', boxShadow: '0 0 40px -5px hsla(15, 90%, 62%, 0.4)' }}>
+            style={{ background: 'var(--gradient-accent)', boxShadow: '0 0 40px -5px hsla(15, 66%, 55%, 0.4)' }}>
             <Sparkles className="w-8 h-8 text-white" />
           </div>
-          <h2 className="font-heading text-4xl font-extrabold mb-4">
-            <span className="gradient-text-accent">Join EventX</span>
-          </h2>
+          {/* Deliberate dark brand panel within the light theme (see note
+              below) — hardcode a light wordmark instead of the (now dark)
+              --foreground token. */}
+          <h2 className="font-heading text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>Join EventX</h2>
           {/* Deliberate dark brand panel within the light theme — hardcode
               light copy instead of the (now dark) --muted-foreground token. */}
           <p className="text-lg leading-relaxed max-w-sm mx-auto" style={{ color: 'hsla(220, 20%, 92%, 0.75)' }}>
@@ -73,7 +74,7 @@ const SignupPage = () => {
               style={{ background: 'var(--gradient-accent)' }}>
               <Ticket className="w-6 h-6 text-white" />
             </div>
-            <span className="font-heading text-2xl font-bold gradient-text-accent">EventX</span>
+            <span className="font-heading text-2xl font-bold text-foreground">EventX</span>
           </div>
 
           <div className="mb-8">
@@ -120,14 +121,14 @@ const SignupPage = () => {
             <button type="submit" className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 cursor-pointer"
               style={{
                 background: 'var(--gradient-accent)',
-                boxShadow: '0 4px 15px -3px hsla(15, 90%, 62%, 0.4)',
+                boxShadow: '0 4px 15px -3px hsla(15, 66%, 55%, 0.4)',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 25px -3px hsla(15, 90%, 62%, 0.55)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 25px -3px hsla(15, 66%, 55%, 0.55)';
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px -3px hsla(15, 90%, 62%, 0.4)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px -3px hsla(15, 66%, 55%, 0.4)';
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
               }}
             >

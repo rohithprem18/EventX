@@ -11,10 +11,10 @@ import CreateEventForm from '@/components/CreateEventForm';
 import { toast } from 'sonner';
 
 const statConfig = [
-  { icon: Calendar, gradient: 'var(--gradient-primary)', glow: 'hsla(265, 90%, 65%, 0.2)' },
-  { icon: Ticket, gradient: 'var(--gradient-accent)', glow: 'hsla(15, 90%, 62%, 0.2)' },
+  { icon: Calendar, gradient: 'var(--gradient-primary)', glow: 'hsla(265, 68%, 60%, 0.2)' },
+  { icon: Ticket, gradient: 'var(--gradient-accent)', glow: 'hsla(15, 66%, 55%, 0.2)' },
   { icon: DollarSign, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)' },
-  { icon: Users, gradient: 'linear-gradient(135deg, hsl(45, 95%, 55%), hsl(35, 90%, 45%))', glow: 'hsla(45, 95%, 55%, 0.2)' },
+  { icon: Users, gradient: 'linear-gradient(135deg, hsl(45, 70%, 50%), hsl(35, 66%, 42%))', glow: 'hsla(45, 70%, 50%, 0.2)' },
 ];
 
 const AdminDashboard = () => {
@@ -305,7 +305,7 @@ const AdminDashboard = () => {
                               (e.currentTarget as HTMLElement).style.background = '';
                             }}
                           >
-                            <td className="p-3 font-mono text-xs font-bold gradient-text">{booking.ticketId}</td>
+                            <td className="p-3 font-mono text-xs font-bold text-primary">{booking.ticketId}</td>
                             <td className="p-3 text-sm">
                               <p className="font-semibold">{booking.userName}</p>
                               <p className="text-xs text-muted-foreground">{booking.userEmail}</p>
@@ -344,7 +344,7 @@ const AdminDashboard = () => {
                           }}>{booking.status}</span>
                         </div>
                         <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                          <span className="font-mono font-bold gradient-text">{booking.ticketId}</span>
+                          <span className="font-mono font-bold text-primary">{booking.ticketId}</span>
                           <span>{booking.ticketCount} ticket{booking.ticketCount > 1 ? 's' : ''}</span>
                           <span className="font-semibold text-foreground">${event ? event.ticketPrice * booking.ticketCount : 0}</span>
                         </div>

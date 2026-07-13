@@ -24,13 +24,13 @@ const EventPage = () => {
   const progressColor = availability > 0.3
     ? 'hsl(155, 72%, 48%)'
     : availability > 0.1
-    ? 'hsl(45, 95%, 55%)'
+    ? 'hsl(45, 70%, 50%)'
     : 'hsl(0, 72%, 55%)';
 
   const progressGlow = availability > 0.3
     ? 'hsla(155, 72%, 48%, 0.3)'
     : availability > 0.1
-    ? 'hsla(45, 95%, 55%, 0.3)'
+    ? 'hsla(45, 70%, 50%, 0.3)'
     : 'hsla(0, 72%, 55%, 0.3)';
 
   return (
@@ -119,8 +119,8 @@ const EventPage = () => {
             >
               <div>
                 <span className="text-sm text-muted-foreground">Price per ticket</span>
-                <p className="font-heading text-4xl font-extrabold mt-1">
-                  <span className="gradient-text">${event.ticketPrice}</span>
+                <p className="font-heading text-4xl font-extrabold mt-1 text-foreground">
+                  ${event.ticketPrice}
                 </p>
               </div>
 

@@ -4,10 +4,16 @@ import { mockEvents } from '@/data/mockData';
 import { motion } from 'framer-motion';
 import { Search, Sparkles, Zap, Shield } from 'lucide-react';
 import { useState, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const HomePage = () => {
+  // The footer's category links (and anything else navigating in) can pass
+  // a starting category via router state, e.g. navigate('/', { state: { category: 'Music' } }).
+  const location = useLocation();
+  const initialCategory = (location.state as { category?: string } | null)?.category;
+
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('All');
+  const [category, setCategory] = useState(initialCategory || 'All');
 
   const categories = ['All', ...Array.from(new Set(mockEvents.map(e => e.category)))];
 
@@ -28,11 +34,11 @@ const HomePage = () => {
         {/* Animated mesh background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full opacity-[0.07] animate-pulse-glow blur-3xl"
-            style={{ background: 'hsl(265, 90%, 65%)' }} />
+            style={{ background: 'hsl(265, 68%, 60%)' }} />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.05] animate-pulse-glow blur-3xl"
-            style={{ background: 'hsl(15, 90%, 62%)', animationDelay: '1.5s' }} />
+            style={{ background: 'hsl(15, 66%, 55%)', animationDelay: '1.5s' }} />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full opacity-[0.04] animate-pulse-glow blur-3xl"
-            style={{ background: 'hsl(290, 85%, 55%)', animationDelay: '3s' }} />
+            style={{ background: 'hsl(290, 60%, 55%)', animationDelay: '3s' }} />
         </div>
 
         {/* Grid pattern overlay */}
@@ -84,9 +90,9 @@ const HomePage = () => {
             className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-10 sm:mt-14"
           >
             {[
-              { icon: Zap, label: 'Real-time booking', color: 'hsl(265, 90%, 65%)' },
-              { icon: Shield, label: 'No double bookings', color: 'hsl(15, 90%, 62%)' },
-              { icon: Sparkles, label: 'Instant tickets', color: 'hsl(45, 95%, 55%)' },
+              { icon: Zap, label: 'Real-time booking', color: 'hsl(265, 68%, 60%)' },
+              { icon: Shield, label: 'No double bookings', color: 'hsl(15, 66%, 55%)' },
+              { icon: Sparkles, label: 'Instant tickets', color: 'hsl(45, 70%, 50%)' },
             ].map(({ icon: Icon, label, color }) => (
               <span
                 key={label}

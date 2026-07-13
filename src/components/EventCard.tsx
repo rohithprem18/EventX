@@ -7,11 +7,11 @@ import { format } from 'date-fns';
 // Text lightness rides on the shared --tint-fg-l token so every category tag
 // stays readable in both themes (darker on light, brighter on dark).
 const categoryColors: Record<string, { bg: string; text: string; glow: string }> = {
-  Music: { bg: 'hsla(265, 90%, 65%, 0.15)', text: 'hsl(265, 90%, var(--tint-fg-l))', glow: 'hsla(265, 90%, 65%, 0.2)' },
-  Tech: { bg: 'hsla(200, 90%, 50%, 0.15)', text: 'hsl(200, 90%, var(--tint-fg-l))', glow: 'hsla(200, 90%, 50%, 0.2)' },
-  Comedy: { bg: 'hsla(45, 95%, 55%, 0.15)', text: 'hsl(45, 95%, var(--tint-fg-l))', glow: 'hsla(45, 95%, 55%, 0.2)' },
-  Film: { bg: 'hsla(340, 80%, 55%, 0.15)', text: 'hsl(340, 80%, var(--tint-fg-l))', glow: 'hsla(340, 80%, 55%, 0.2)' },
-  Food: { bg: 'hsla(155, 72%, 48%, 0.15)', text: 'hsl(155, 72%, var(--tint-fg-l))', glow: 'hsla(155, 72%, 48%, 0.2)' },
+  Music: { bg: 'hsla(265, 68%, 60%, 0.15)', text: 'hsl(265, 68%, var(--tint-fg-l))', glow: 'hsla(265, 68%, 60%, 0.2)' },
+  Tech: { bg: 'hsla(200, 68%, 46%, 0.15)', text: 'hsl(200, 68%, var(--tint-fg-l))', glow: 'hsla(200, 68%, 46%, 0.2)' },
+  Comedy: { bg: 'hsla(45, 70%, 50%, 0.15)', text: 'hsl(45, 70%, var(--tint-fg-l))', glow: 'hsla(45, 70%, 50%, 0.2)' },
+  Film: { bg: 'hsla(340, 62%, 52%, 0.15)', text: 'hsl(340, 62%, var(--tint-fg-l))', glow: 'hsla(340, 62%, 52%, 0.2)' },
+  Food: { bg: 'hsla(155, 62%, 44%, 0.15)', text: 'hsl(155, 62%, var(--tint-fg-l))', glow: 'hsla(155, 62%, 44%, 0.2)' },
 };
 
 const defaultCategoryColor = { bg: 'hsla(var(--muted))', text: 'hsl(var(--muted-foreground))', glow: 'transparent' };
@@ -19,10 +19,10 @@ const defaultCategoryColor = { bg: 'hsla(var(--muted))', text: 'hsl(var(--muted-
 const EventCard = ({ event, index = 0 }: { event: Event; index?: number }) => {
   const availability = event.availableTickets / event.totalTickets;
   const availColor = availability > 0.3
-    ? { text: 'hsl(155, 72%, var(--tint-fg-l))', bg: 'hsla(155, 72%, 48%, 0.12)' }
+    ? { text: 'hsl(155, 62%, var(--tint-fg-l))', bg: 'hsla(155, 62%, 44%, 0.12)' }
     : availability > 0.1
-    ? { text: 'hsl(45, 95%, var(--tint-fg-l))', bg: 'hsla(45, 95%, 55%, 0.14)' }
-    : { text: 'hsl(0, 72%, var(--tint-fg-l))', bg: 'hsla(0, 72%, 55%, 0.12)' };
+    ? { text: 'hsl(45, 70%, var(--tint-fg-l))', bg: 'hsla(45, 70%, 50%, 0.14)' }
+    : { text: 'hsl(0, 62%, var(--tint-fg-l))', bg: 'hsla(0, 62%, 50%, 0.12)' };
 
   const catColor = categoryColors[event.category] || defaultCategoryColor;
   const isLowStock = availability <= 0.15 && availability > 0;

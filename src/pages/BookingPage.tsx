@@ -190,15 +190,15 @@ const BookingPage = () => {
               >
                 <CheckCircle2 className="w-10 h-10" style={{ color: 'hsl(155, 65%, var(--tint-fg-l))' }} />
               </motion.div>
-              <h1 className="font-heading text-3xl font-extrabold">Booking Confirmed!</h1>
+              <h1 className="font-heading text-3xl font-extrabold">Booking confirmed</h1>
               <div className="glass-card-static p-6 text-left space-y-3 rounded-xl">
-                <div className="flex justify-between"><span className="text-muted-foreground">Ticket ID</span><span className="font-mono font-bold gradient-text">{ticketId}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Ticket ID</span><span className="font-mono font-bold text-primary">{ticketId}</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">Event</span><span className="font-semibold">{event.title}</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">Tickets</span><span>{ticketCount}</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">Seats</span><span className="font-mono">{selectedSeats.join(', ')}</span></div>
                 <div className="flex justify-between pt-2" style={{ borderTop: '1px solid hsl(var(--border))' }}>
                   <span className="text-muted-foreground">Total</span>
-                  <span className="font-heading font-extrabold text-xl gradient-text">${total}</span>
+                  <span className="font-heading font-extrabold text-xl text-foreground">${total}</span>
                 </div>
               </div>
 
@@ -235,7 +235,7 @@ const BookingPage = () => {
               >
                 <AlertTriangle className="w-10 h-10 text-destructive animate-pulse" />
               </motion.div>
-              <h1 className="font-heading text-2xl font-extrabold text-destructive">Booking Collision Detected!</h1>
+              <h1 className="font-heading text-2xl font-extrabold text-destructive">Booking collision detected</h1>
 
               <div className="glass-card-static p-6 text-left space-y-4 rounded-xl" style={{
                 border: '1px solid hsl(var(--destructive) / 0.15)',
@@ -332,9 +332,9 @@ const BookingPage = () => {
                 />
                 {otherLockedSeats.length > 0 && (
                   <div className="flex items-center gap-2 mt-4 px-3 py-2.5 rounded-lg text-xs font-medium" style={{
-                    background: 'hsla(38, 92%, 50%, 0.12)',
-                    border: '1px solid hsla(38, 92%, 45%, 0.3)',
-                    color: 'hsl(38, 92%, var(--tint-fg-l))',
+                    background: 'hsla(38, 68%, 46%, 0.12)',
+                    border: '1px solid hsla(38, 68%, 42%, 0.3)',
+                    color: 'hsl(38, 68%, var(--tint-fg-l))',
                   }}>
                     <Lock className="w-3.5 h-3.5" />
                     {otherLockedSeats.length} seat{otherLockedSeats.length > 1 ? 's' : ''} currently held by other users
@@ -376,7 +376,7 @@ const BookingPage = () => {
                   </div>
                   <div className="flex justify-between font-heading font-extrabold text-xl pt-3" style={{ borderTop: '1px solid hsl(var(--border))' }}>
                     <span>Total</span>
-                    <span className="gradient-text">${total}</span>
+                    <span className="text-foreground">${total}</span>
                   </div>
                 </div>
 

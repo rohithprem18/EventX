@@ -29,9 +29,9 @@ const LoginPage = () => {
       }}>
         {/* Animated orbs */}
         <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full opacity-[0.12] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(265, 90%, 65%)' }} />
+          style={{ background: 'hsl(265, 68%, 60%)' }} />
         <div className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] rounded-full opacity-[0.08] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(15, 90%, 62%)', animationDelay: '2s' }} />
+          style={{ background: 'hsl(15, 66%, 55%)', animationDelay: '2s' }} />
         
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.05]"
@@ -42,12 +42,13 @@ const LoginPage = () => {
 
         <div className="relative z-10 text-center px-12">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8"
-            style={{ background: 'var(--gradient-primary)', boxShadow: '0 0 40px -5px hsla(265, 90%, 65%, 0.4)' }}>
+            style={{ background: 'var(--gradient-primary)', boxShadow: '0 0 40px -5px hsla(265, 68%, 60%, 0.4)' }}>
             <Ticket className="w-8 h-8 text-white" />
           </div>
-          <h2 className="font-heading text-4xl font-extrabold mb-4">
-            <span className="gradient-text">EventX</span>
-          </h2>
+          {/* This panel is a deliberate dark brand accent within the light
+              theme (see note below), so the wordmark is hardcoded light
+              rather than relying on the (now dark) --foreground token. */}
+          <h2 className="font-heading text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>EventX</h2>
           {/* This panel is a deliberate dark brand accent within the light
               theme, so its body copy is hardcoded light rather than using
               the (now dark) --muted-foreground token. */}
@@ -76,7 +77,7 @@ const LoginPage = () => {
               style={{ background: 'var(--gradient-primary)' }}>
               <Ticket className="w-6 h-6 text-white" />
             </div>
-            <span className="font-heading text-2xl font-bold gradient-text">EventX</span>
+            <span className="font-heading text-2xl font-bold text-foreground">EventX</span>
           </div>
 
           <div className="mb-8">

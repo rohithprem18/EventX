@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Ticket, Github, Twitter, Instagram, ArrowUpRight } from 'lucide-react';
 
+// GitHub links to the real repo. Twitter/Instagram have no accounts yet, so
+// they're rendered disabled below instead of pointing at a dead "#" href.
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Github, href: '#', label: 'GitHub' },
+  { icon: Twitter, href: null, label: 'Twitter' },
+  { icon: Instagram, href: null, label: 'Instagram' },
+  { icon: Github, href: 'https://github.com/rohithprem18/EventX', label: 'GitHub' },
 ];
 
 const Footer = () => {
@@ -30,31 +32,45 @@ const Footer = () => {
                 style={{ background: 'var(--gradient-primary)' }}>
                 <Ticket className="w-4 h-4 text-white" />
               </div>
-              <span className="font-heading text-xl font-bold gradient-text">EventX</span>
+              <span className="font-heading text-xl font-bold text-foreground">EventX</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px]">
-              Book event tickets with lightning-fast concurrency. No double bookings. No stress. Just seamless experiences.
+              Book event tickets with lightning-fast concurrency. No double bookings, no stress.
             </p>
             <div className="flex gap-2">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 hover:text-white hover:shadow-glow"
-                  style={{ border: '1px solid hsl(var(--border))' }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.background = 'var(--gradient-primary)';
-                    (e.currentTarget as HTMLElement).style.borderColor = 'transparent';
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.background = '';
-                    (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--border))';
-                  }}
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
+              {socialLinks.map(({ icon: Icon, href, label }) =>
+                href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 hover:text-white hover:shadow-glow"
+                    style={{ border: '1px solid hsl(var(--border))' }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.background = 'var(--gradient-primary)';
+                      (e.currentTarget as HTMLElement).style.borderColor = 'transparent';
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.background = '';
+                      (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--border))';
+                    }}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <span
+                    key={label}
+                    aria-disabled="true"
+                    title={`${label} — not available yet`}
+                    className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground/40 cursor-not-allowed"
+                    style={{ border: '1px solid hsl(var(--border))' }}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </span>
+                )
+              )}
             </div>
           </div>
 
@@ -87,10 +103,14 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               {['Music', 'Tech', 'Comedy', 'Film', 'Food'].map(cat => (
                 <li key={cat}>
-                  <span className="text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer flex items-center gap-2">
+                  <Link
+                    to="/"
+                    state={{ category: cat }}
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 flex items-center gap-2"
+                  >
                     <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gradient-primary)' }} />
-                    {cat} Events
-                  </span>
+                    {cat} events
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -99,12 +119,13 @@ const Footer = () => {
           {/* Support */}
           <div>
             <h4 className="font-heading font-semibold mb-5 text-foreground">Support</h4>
+            {/* Informational only — no destination pages exist yet, so these
+                are plain text rather than links that look clickable but go
+                nowhere. */}
             <ul className="space-y-3 text-sm">
-              {['Help Center', 'Contact Us', 'Privacy Policy', 'Terms of Service'].map(item => (
-                <li key={item}>
-                  <span className="text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer">
-                    {item}
-                  </span>
+              {['Help center', 'Contact us', 'Privacy policy', 'Terms of service'].map(item => (
+                <li key={item} className="text-muted-foreground/70">
+                  {item}
                 </li>
               ))}
             </ul>
@@ -120,9 +141,9 @@ const Footer = () => {
           </p>
           <p className="text-xs text-muted-foreground flex items-center gap-1.5">
             Built with
-            <span className="gradient-text font-medium">React</span>
+            <span className="text-primary font-medium">React</span>
             <span>·</span>
-            <span className="gradient-text-accent font-medium">TailwindCSS</span>
+            <span className="text-accent font-medium">TailwindCSS</span>
             <span>·</span>
             <span className="text-primary font-medium">Framer Motion</span>
           </p>
