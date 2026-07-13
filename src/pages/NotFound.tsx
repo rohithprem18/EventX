@@ -1,23 +1,55 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { AnimatedPage } from '@/components/AnimatedPage';
+import { motion } from 'framer-motion';
+import { Home, ArrowRight } from 'lucide-react';
 
 const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
+  const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
+    <AnimatedPage className="min-h-screen flex items-center justify-center px-4 pt-16 relative overflow-hidden">
+      {/* Atmospheric background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/3 left-1/3 w-[400px] h-[400px] rounded-full opacity-[0.06] blur-3xl animate-pulse-glow"
+          style={{ background: 'hsl(265, 90%, 65%)' }} />
+        <div className="absolute bottom-1/3 right-1/3 w-[300px] h-[300px] rounded-full opacity-[0.04] blur-3xl animate-pulse-glow"
+          style={{ background: 'hsl(15, 90%, 62%)', animationDelay: '2s' }} />
       </div>
-    </div>
+
+      <div className="text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-6"
+        >
+          <motion.h1
+            className="font-heading text-[8rem] sm:text-[12rem] font-black leading-none gradient-text select-none"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            404
+          </motion.h1>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <h2 className="font-heading text-2xl font-bold mb-3">Page not found</h2>
+          <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="btn-primary inline-flex items-center gap-2"
+          >
+            <Home className="w-4 h-4" /> Back to Events <ArrowRight className="w-4 h-4" />
+          </button>
+        </motion.div>
+      </div>
+    </AnimatedPage>
   );
 };
 

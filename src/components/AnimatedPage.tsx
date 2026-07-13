@@ -1,10 +1,23 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 const pageVariants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' as const } },
-  exit: { opacity: 0, y: -10, transition: { duration: 0.2 } },
+  initial: { opacity: 0, y: 24, filter: 'blur(4px)' },
+  animate: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    filter: 'blur(2px)',
+    transition: { duration: 0.25 },
+  },
 };
 
 export const AnimatedPage = ({ children, className = '' }: { children: ReactNode; className?: string }) => (
@@ -25,7 +38,7 @@ export const StaggerContainer = ({ children, className = '' }: { children: React
     animate="visible"
     variants={{
       hidden: {},
-      visible: { transition: { staggerChildren: 0.08 } },
+      visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
     }}
     className={className}
   >
@@ -36,8 +49,13 @@ export const StaggerContainer = ({ children, className = '' }: { children: React
 export const StaggerItem = ({ children, className = '' }: { children: ReactNode; className?: string }) => (
   <motion.div
     variants={{
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+      hidden: { opacity: 0, y: 24, filter: 'blur(4px)' },
+      visible: {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] },
+      },
     }}
     className={className}
   >

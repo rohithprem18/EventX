@@ -20,7 +20,34 @@ A **modern, production‑ready** front‑end demo of a high‑concurrency event 
 - **Premium UI** built with **Radix UI**, **shadcn/ui**, **Tailwind CSS**, and **Framer Motion** for smooth micro‑animations.
 - **Responsive design** – works beautifully on desktop and mobile.
 
-> **Note:** The project uses mock data (`src/data/mockData.ts`) for demonstration. The architecture mirrors a real‑world service where a backend API would provide events, bookings, and authentication.
+> **Note:** Events come from mock data (`src/data/mockData.ts`), but bookings and seat locks are backed by a real (in‑memory) Node server — see below.
+
+---
+
+## Getting Started
+
+```bash
+npm install
+npm run dev      # starts the Vite dev server AND the booking API together
+```
+
+This opens the app at `http://localhost:8080`, with the booking API on
+`http://localhost:3001`. `npm run dev` runs both via `concurrently`; use
+`npm run dev:client` / `npm run dev:server` if you want them separately
+(e.g. in two terminals).
+
+**Why both matter:** the "no double booking" guarantee is enforced by
+`server.js`, not the browser. It's a single‑threaded Node handler that
+checks-then-writes a seat with no `await` in between, so two concurrent
+requests for the same seat can never interleave — the second always gets a
+`409`. If the API isn't running, the app falls back to a best‑effort local
+mode (seat locks/bookings kept in `localStorage`) so the UI still works, but
+that fallback can only serialize bookings within *one* browser — it has no
+way to see what another browser or device just booked. A banner appears on
+the booking page whenever the API is unreachable, precisely because that
+guarantee doesn't hold in that mode. **To see real concurrent-booking
+protection, run `npm run dev` (not just `vite`) and try booking the same
+seat from two different browser windows.**
 
 ---
 
@@ -31,9 +58,12 @@ A **modern, production‑ready** front‑end demo of a high‑concurrency event 
 | **Event Catalog** | Search by title/venue, filter by category, and view featured events on the home page. |
 | **Event Details** | Hero banner, formatted date, venue map, ticket availability bar, and description. |
 | **Booking Card** | Seat selection, ticket count (max 10), price calculation, and real‑time progress bar. |
-| **PDF Ticket** | Generates a downloadable PDF receipt with event info, seat numbers, and user details. |
+| **Concurrency-safe booking** | Node backend rejects a seat the instant it's taken (409), even under many simultaneous requests — see *Getting Started*. |
+| **Cross-tab seat locks** | Selecting a seat broadcasts a short-lived "locked" hold via SSE so other viewers see it as unavailable while you're checking out. |
+| **PDF Ticket** | Generates a downloadable, QR-coded PDF ticket with event info, seat numbers, and user details. |
 | **Authentication** | Simple login/signup flow; protected routes redirect unauthenticated users. |
-| **Admin Dashboard** | Placeholder for admin‑only pages (e.g., event creation, analytics). |
+| **Admin Dashboard** | Create/edit/delete events and browse all bookings. |
+| **Light & dark themes** | Toggle in the navbar (sun/moon icon); persisted across visits. |
 | **Animations** | Page transitions, staggered item reveals, and hover effects via **Framer Motion**. |
 | **Responsive UI** | Tailwind’s utility‑first classes ensure mobile‑first layout. |
 | **Testing** | Unit & component tests powered by **Vitest** and **React Testing Library**. |

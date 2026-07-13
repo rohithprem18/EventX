@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Event } from '@/data/mockData';
 import { motion } from 'framer-motion';
 import { X, Calendar, MapPin, DollarSign, Ticket, Image } from 'lucide-react';
@@ -38,6 +38,16 @@ const CreateEventForm = ({
       : { title: '', description: '', date: '', venue: '', ticketPrice: '', totalTickets: '', category: 'Music' }
   );
   const [errors, setErrors] = useState<Partial<EventFormData>>({});
+
+  // Lock page scroll while the modal is open so the backdrop can't be
+  // scrolled behind it, and restore whatever the user had before.
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
 
   const update = (key: keyof EventFormData, value: string) => {
     setForm(prev => ({ ...prev, [key]: value }));

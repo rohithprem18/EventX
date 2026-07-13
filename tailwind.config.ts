@@ -12,8 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        heading: ["Space Grotesk", "sans-serif"],
+        sans: ["Outfit", "Inter", "system-ui", "sans-serif"],
+        heading: ["Outfit", "Space Grotesk", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "Fira Code", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -65,6 +66,13 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        'glow': '0 0 30px -5px hsla(265, 90%, 65%, 0.25)',
+        'glow-lg': '0 0 60px -10px hsla(265, 90%, 65%, 0.35)',
+        'glow-accent': '0 0 30px -5px hsla(15, 90%, 62%, 0.25)',
+        'glow-success': '0 0 30px -5px hsla(155, 72%, 48%, 0.25)',
+        'inner-glow': 'inset 0 1px 0 0 hsla(0, 0%, 100%, 0.05)',
+      },
       keyframes: {
         "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
         "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
@@ -77,12 +85,34 @@ export default {
           "100%": { opacity: "1" },
         },
         "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px -5px hsl(239 84% 67% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px -5px hsl(239 84% 67% / 0.5)" },
+          "0%, 100%": { boxShadow: "0 0 20px -5px hsla(265, 90%, 65%, 0.3)" },
+          "50%": { boxShadow: "0 0 45px -5px hsla(265, 90%, 65%, 0.5)" },
         },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
+          "50%": { opacity: "0.8", transform: "scale(1.05)" },
+        },
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        spotlight: {
+          "0%": { opacity: "0", transform: "translateX(-100%) rotate(-45deg)" },
+          "50%": { opacity: "0.08" },
+          "100%": { opacity: "0", transform: "translateX(100%) rotate(-45deg)" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
       },
       animation: {
@@ -92,6 +122,11 @@ export default {
         "fade-in": "fade-in 0.3s ease-out",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
+        float: "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 8s ease infinite",
+        spotlight: "spotlight 3s ease-in-out infinite",
+        "spin-slow": "spin-slow 3s linear infinite",
       },
     },
   },
