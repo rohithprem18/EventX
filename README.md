@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="docs/banner.svg" alt="EventX — High-Concurrency Event Ticket Booking Platform" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/banner-light.svg">
+    <img src="docs/banner-light.svg" alt="EventX — Real-time seats. Zero double-bookings." width="100%" />
+  </picture>
 </p>
 
 <h1 align="center">EventX</h1>
@@ -146,7 +150,8 @@ EventX/
 │   ├── data/                   # Mock event data
 │   └── test/                   # Vitest setup + tests
 └── docs/
-    └── banner.svg              # README banner
+    ├── banner-light.svg         # README banner (light theme)
+    └── banner-dark.svg          # README banner (dark theme)
 ```
 
 ---
