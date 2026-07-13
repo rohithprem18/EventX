@@ -11,10 +11,10 @@ import CreateEventForm from '@/components/CreateEventForm';
 import { toast } from 'sonner';
 
 const statConfig = [
-  { icon: Calendar, gradient: 'var(--gradient-primary)', glow: 'hsla(265, 68%, 60%, 0.2)' },
-  { icon: Ticket, gradient: 'var(--gradient-accent)', glow: 'hsla(15, 66%, 55%, 0.2)' },
-  { icon: DollarSign, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)' },
-  { icon: Users, gradient: 'linear-gradient(135deg, hsl(45, 70%, 50%), hsl(35, 66%, 42%))', glow: 'hsla(45, 70%, 50%, 0.2)' },
+  { icon: Calendar, gradient: 'var(--gradient-primary)', glow: 'hsla(38, 80%, 50%, 0.2)', dark: true },
+  { icon: Ticket, gradient: 'var(--gradient-accent)', glow: 'hsla(350, 65%, 46%, 0.2)', dark: false },
+  { icon: DollarSign, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)', dark: false },
+  { icon: Users, gradient: 'linear-gradient(135deg, hsl(200, 70%, 48%), hsl(210, 66%, 40%))', glow: 'hsla(200, 70%, 48%, 0.2)', dark: false },
 ];
 
 const AdminDashboard = () => {
@@ -86,12 +86,12 @@ const AdminDashboard = () => {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {statsData.map((stat, i) => {
-            const { icon: Icon, gradient, glow } = statConfig[i];
+            const { icon: Icon, gradient, glow, dark } = statConfig[i];
             return (
               <div key={stat.label} className="glass-card-static p-4 rounded-xl flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                   style={{ background: gradient, boxShadow: `0 0 20px ${glow}` }}>
-                  <Icon className="w-4.5 h-4.5 text-white" />
+                  <Icon className="w-4.5 h-4.5" style={{ color: dark ? 'hsl(var(--primary-foreground))' : 'white' }} />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-muted-foreground font-medium">{stat.label}</p>

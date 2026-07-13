@@ -1,9 +1,16 @@
-import eventNeonNights from '@/assets/event-neon-nights.jpg';
-import eventTechSummit from '@/assets/event-tech-summit.jpg';
-import eventComedy from '@/assets/event-comedy.jpg';
-import eventCinema from '@/assets/event-cinema.jpg';
-import eventFoodWine from '@/assets/event-food-wine.jpg';
-import eventDjNight from '@/assets/event-dj-night.jpg';
+// No image-generation tool is wired into this environment, and no real
+// photography was supplied for these mock events, so per the project's
+// image policy each banner is a seeded Picsum photograph rather than a
+// hand-rolled placeholder graphic — real photography, deterministic per
+// event, sized for a wide banner crop.
+const picsum = (seed: string) => `https://picsum.photos/seed/${seed}/1600/1000`;
+
+const eventNeonNights = picsum('eventx-neon-music-festival');
+const eventTechSummit = picsum('eventx-tech-summit-keynote');
+const eventComedy = picsum('eventx-comedy-night-stage');
+const eventCinema = picsum('eventx-outdoor-cinema-rooftop');
+const eventFoodWine = picsum('eventx-food-wine-expo');
+const eventDjNight = picsum('eventx-dj-warehouse-night');
 
 // ─── Types ───
 

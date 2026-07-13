@@ -87,7 +87,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2.5 group">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:shadow-glow"
             style={{ background: 'var(--gradient-primary)' }}>
-            <Ticket className="w-4 h-4 text-white" />
+            <Ticket className="w-4 h-4" style={{ color: 'hsl(var(--primary-foreground))' }} />
           </div>
           <span className="font-heading text-xl font-bold text-foreground">EventX</span>
         </Link>
@@ -131,8 +131,8 @@ const Navbar = () => {
           {user ? (
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg" style={{ background: 'hsla(var(--secondary))' }}>
-                <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                  style={{ background: 'var(--gradient-primary)' }}>
+                <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
+                  style={{ background: 'var(--gradient-primary)', color: 'hsl(var(--primary-foreground))' }}>
                   {user.name.charAt(0).toUpperCase()}
                 </div>
                 <span className="text-sm font-medium text-foreground">{user.name}</span>

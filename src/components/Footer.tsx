@@ -30,7 +30,7 @@ const Footer = () => {
             <Link to="/" className="flex items-center gap-2.5 group w-fit">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-shadow duration-300 group-hover:shadow-glow"
                 style={{ background: 'var(--gradient-primary)' }}>
-                <Ticket className="w-4 h-4 text-white" />
+                <Ticket className="w-4 h-4" style={{ color: 'hsl(var(--primary-foreground))' }} />
               </div>
               <span className="font-heading text-xl font-bold text-foreground">EventX</span>
             </Link>
@@ -46,15 +46,17 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 hover:text-white hover:shadow-glow"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 hover:shadow-glow"
                     style={{ border: '1px solid hsl(var(--border))' }}
                     onMouseEnter={e => {
                       (e.currentTarget as HTMLElement).style.background = 'var(--gradient-primary)';
                       (e.currentTarget as HTMLElement).style.borderColor = 'transparent';
+                      (e.currentTarget as HTMLElement).style.color = 'hsl(var(--primary-foreground))';
                     }}
                     onMouseLeave={e => {
                       (e.currentTarget as HTMLElement).style.background = '';
                       (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--border))';
+                      (e.currentTarget as HTMLElement).style.color = '';
                     }}
                   >
                     <Icon className="w-4 h-4" />

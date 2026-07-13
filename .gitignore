@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Local agent tooling / skills config — not part of the shipped project
+.claude
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

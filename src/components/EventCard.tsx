@@ -74,9 +74,10 @@ const EventCard = ({ event, index = 0 }: { event: Event; index?: number }) => {
 
           {/* Featured badge */}
           {event.featured && (
-            <div className="absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full text-white"
+            <div className="absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full"
               style={{
                 background: 'var(--gradient-primary)',
+                color: 'hsl(var(--primary-foreground))',
                 boxShadow: 'var(--shadow-glow)',
               }}>
               Featured

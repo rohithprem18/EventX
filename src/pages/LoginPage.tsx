@@ -29,9 +29,9 @@ const LoginPage = () => {
       }}>
         {/* Animated orbs */}
         <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full opacity-[0.12] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(265, 68%, 60%)' }} />
+          style={{ background: 'hsl(38, 80%, 50%)' }} />
         <div className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] rounded-full opacity-[0.08] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(15, 66%, 55%)', animationDelay: '2s' }} />
+          style={{ background: 'hsl(350, 65%, 46%)', animationDelay: '2s' }} />
         
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.05]"
@@ -42,8 +42,8 @@ const LoginPage = () => {
 
         <div className="relative z-10 text-center px-12">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8"
-            style={{ background: 'var(--gradient-primary)', boxShadow: '0 0 40px -5px hsla(265, 68%, 60%, 0.4)' }}>
-            <Ticket className="w-8 h-8 text-white" />
+            style={{ background: 'var(--gradient-primary)', boxShadow: '0 0 40px -5px hsla(38, 80%, 50%, 0.4)' }}>
+            <Ticket className="w-8 h-8" style={{ color: 'hsl(var(--primary-foreground))' }} />
           </div>
           {/* This panel is a deliberate dark brand accent within the light
               theme (see note below), so the wordmark is hardcoded light
@@ -75,7 +75,7 @@ const LoginPage = () => {
           <div className="lg:hidden text-center mb-10">
             <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3"
               style={{ background: 'var(--gradient-primary)' }}>
-              <Ticket className="w-6 h-6 text-white" />
+              <Ticket className="w-6 h-6" style={{ color: 'hsl(var(--primary-foreground))' }} />
             </div>
             <span className="font-heading text-2xl font-bold text-foreground">EventX</span>
           </div>

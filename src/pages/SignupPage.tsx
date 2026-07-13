@@ -28,9 +28,9 @@ const SignupPage = () => {
       }}>
         {/* Animated orbs */}
         <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full opacity-[0.1] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(15, 66%, 55%)' }} />
+          style={{ background: 'hsl(350, 65%, 46%)' }} />
         <div className="absolute bottom-1/4 left-1/3 w-[250px] h-[250px] rounded-full opacity-[0.08] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(265, 68%, 60%)', animationDelay: '2s' }} />
+          style={{ background: 'hsl(38, 80%, 50%)', animationDelay: '2s' }} />
         
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.05]"
@@ -41,7 +41,7 @@ const SignupPage = () => {
 
         <div className="relative z-10 text-center px-12">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8"
-            style={{ background: 'var(--gradient-accent)', boxShadow: '0 0 40px -5px hsla(15, 66%, 55%, 0.4)' }}>
+            style={{ background: 'var(--gradient-accent)', boxShadow: '0 0 40px -5px hsla(350, 65%, 46%, 0.4)' }}>
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           {/* Deliberate dark brand panel within the light theme (see note
@@ -121,14 +121,14 @@ const SignupPage = () => {
             <button type="submit" className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 cursor-pointer"
               style={{
                 background: 'var(--gradient-accent)',
-                boxShadow: '0 4px 15px -3px hsla(15, 66%, 55%, 0.4)',
+                boxShadow: '0 4px 15px -3px hsla(350, 65%, 46%, 0.4)',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 25px -3px hsla(15, 66%, 55%, 0.55)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 25px -3px hsla(350, 65%, 46%, 0.55)';
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px -3px hsla(15, 66%, 55%, 0.4)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px -3px hsla(350, 65%, 46%, 0.4)';
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
               }}
             >

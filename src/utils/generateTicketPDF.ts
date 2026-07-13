@@ -34,15 +34,18 @@ const lerpColor = (c1: RGB, c2: RGB, t: number): RGB => [
   lerp(c1[2], c2[2], t),
 ];
 
+// Deliberately darker/richer than the web brand hues (which run lighter for
+// button contrast) — this gradient carries bold WHITE text and a white QR
+// panel directly on top of it, so each stop is tuned to hold that contrast.
 const PALETTE = {
-  primary: hslToRgb(265, 90, 65),
-  violet: hslToRgb(290, 85, 55),
-  pink: hslToRgb(320, 80, 60),
-  ink: hslToRgb(222, 35, 14),
-  slate: hslToRgb(215, 16, 42),
-  faint: hslToRgb(220, 18, 90),
+  primary: hslToRgb(38, 82, 34),
+  amber: hslToRgb(44, 80, 40),
+  crimson: hslToRgb(350, 68, 38),
+  ink: hslToRgb(240, 15, 14),
+  slate: hslToRgb(232, 10, 42),
+  faint: hslToRgb(235, 12, 90),
   paper: hslToRgb(0, 0, 100),
-  page: hslToRgb(222, 25, 95),
+  page: hslToRgb(235, 16, 95),
   success: hslToRgb(155, 65, 40),
   white: [255, 255, 255] as RGB,
 };
@@ -156,7 +159,7 @@ export const generateTicketPDF = async (data: TicketData) => {
     cardY,
     stubW,
     cardH,
-    [PALETTE.primary, PALETTE.violet, PALETTE.pink],
+    [PALETTE.primary, PALETTE.amber, PALETTE.crimson],
     'vertical'
   );
 
@@ -327,8 +330,8 @@ export const generateTicketPDF = async (data: TicketData) => {
       chipX = leftX;
       chipY += 7;
     }
-    setFill(doc, hslToRgb(265, 90, 96));
-    setDraw(doc, hslToRgb(265, 60, 82));
+    setFill(doc, hslToRgb(38, 85, 94));
+    setDraw(doc, hslToRgb(38, 60, 78));
     doc.setLineWidth(0.2);
     doc.roundedRect(chipX, chipY, w, 6, 1.5, 1.5, 'FD');
     setText(doc, PALETTE.primary);

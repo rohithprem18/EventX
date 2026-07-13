@@ -64,7 +64,7 @@ const SeatPicker = ({
     selected: {
       background: 'var(--gradient-primary)',
       borderColor: 'hsl(var(--primary))',
-      color: 'white',
+      color: 'hsl(var(--primary-foreground))',
       cursor: 'pointer',
       boxShadow: '0 0 16px -3px hsl(var(--primary) / 0.5)',
     },
@@ -91,8 +91,8 @@ const SeatPicker = ({
           className="h-10 rounded-t-[100%] flex items-center justify-center text-xs font-bold tracking-[0.2em] uppercase"
           style={{
             background: 'var(--gradient-primary)',
-            boxShadow: '0 8px 40px -5px hsla(265, 68%, 60%, 0.35), inset 0 -2px 10px hsla(0, 0%, 0%, 0.2)',
-            color: 'white',
+            boxShadow: '0 8px 40px -5px hsla(38, 80%, 50%, 0.35), inset 0 -2px 10px hsla(0, 0%, 0%, 0.2)',
+            color: 'hsl(var(--primary-foreground))',
           }}
         >
           STAGE
@@ -100,7 +100,7 @@ const SeatPicker = ({
         <div
           className="h-[2px] w-full"
           style={{
-            background: 'linear-gradient(90deg, transparent, hsla(265, 68%, 60%, 0.4), hsla(290, 60%, 55%, 0.3), transparent)',
+            background: 'linear-gradient(90deg, transparent, hsla(38, 80%, 50%, 0.4), hsla(350, 65%, 46%, 0.3), transparent)',
           }}
         />
         {/* Stage glow */}
@@ -173,7 +173,7 @@ const SeatPicker = ({
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 rounded-md" style={{
             background: 'var(--gradient-primary)',
-            boxShadow: '0 0 10px -2px hsla(265, 68%, 60%, 0.4)',
+            boxShadow: '0 0 10px -2px hsla(38, 80%, 50%, 0.4)',
           }} />
           <span>Selected</span>
         </div>

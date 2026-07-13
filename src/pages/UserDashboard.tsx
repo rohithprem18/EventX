@@ -8,9 +8,9 @@ import { format } from 'date-fns';
 import { generateTicketPDF } from '@/utils/generateTicketPDF';
 
 const statIcons = [
-  { icon: ShoppingBag, gradient: 'var(--gradient-primary)', glow: 'hsla(265, 68%, 60%, 0.2)' },
-  { icon: CreditCard, gradient: 'var(--gradient-accent)', glow: 'hsla(15, 66%, 55%, 0.2)' },
-  { icon: TrendingUp, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)' },
+  { icon: ShoppingBag, gradient: 'var(--gradient-primary)', glow: 'hsla(38, 80%, 50%, 0.2)', dark: true },
+  { icon: CreditCard, gradient: 'var(--gradient-accent)', glow: 'hsla(350, 65%, 46%, 0.2)', dark: false },
+  { icon: TrendingUp, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)', dark: false },
 ];
 
 const UserDashboard = () => {
@@ -43,12 +43,12 @@ const UserDashboard = () => {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
           {stats.map((stat, i) => {
-            const { icon: Icon, gradient, glow } = statIcons[i];
+            const { icon: Icon, gradient, glow, dark } = statIcons[i];
             return (
               <div key={stat.label} className="glass-card-static p-5 rounded-xl flex items-center gap-4">
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
                   style={{ background: gradient, boxShadow: `0 0 20px ${glow}` }}>
-                  <Icon className="w-5 h-5 text-white" />
+                  <Icon className="w-5 h-5" style={{ color: dark ? 'hsl(var(--primary-foreground))' : 'white' }} />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground font-medium">{stat.label}</p>
@@ -125,7 +125,7 @@ const UserDashboard = () => {
                             totalPrice: event.ticketPrice * booking.ticketCount,
                           });
                         }}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-white transition-all duration-200"
+                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-200"
                         style={{
                           border: '1px solid hsl(var(--border))',
                         }}
@@ -133,11 +133,13 @@ const UserDashboard = () => {
                           (e.currentTarget as HTMLElement).style.background = 'var(--gradient-primary)';
                           (e.currentTarget as HTMLElement).style.borderColor = 'transparent';
                           (e.currentTarget as HTMLElement).style.boxShadow = '0 0 15px -3px hsl(var(--primary) / 0.3)';
+                          (e.currentTarget as HTMLElement).style.color = 'hsl(var(--primary-foreground))';
                         }}
                         onMouseLeave={e => {
                           (e.currentTarget as HTMLElement).style.background = '';
                           (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--border))';
                           (e.currentTarget as HTMLElement).style.boxShadow = '';
+                          (e.currentTarget as HTMLElement).style.color = '';
                         }}
                         title="Download ticket PDF"
                       >

@@ -6,7 +6,10 @@ import { Search, Sparkles, Zap, Shield, ArrowRight } from 'lucide-react';
 import { useState, useMemo, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import heroImage from '@/assets/event-neon-nights.jpg';
+
+// Seeded Picsum photograph — see the note in src/data/mockData.ts on why
+// this isn't a generated or hand-rolled asset.
+const heroImage = 'https://picsum.photos/seed/eventx-hero-crowd-lights/1920/1200';
 
 const trustPoints = [
   { icon: Zap, label: 'Real-time booking', description: 'Seat availability updates live as tickets sell.' },

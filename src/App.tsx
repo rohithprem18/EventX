@@ -1,7 +1,4 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/sonner";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { ThemeProvider } from "next-themes";
@@ -18,8 +15,6 @@ import AdminDashboard from "@/pages/AdminDashboard";
 import LoginPage from "@/pages/LoginPage";
 import SignupPage from "@/pages/SignupPage";
 import NotFound from "./pages/NotFound";
-
-const queryClient = new QueryClient();
 
 // Keying Routes by pathname lets AnimatePresence detect a page change and
 // play each page's exit transition before the next one mounts, instead of
@@ -44,24 +39,19 @@ const AnimatedRoutes = () => {
 
 const App = () => (
   <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="eventx-theme" disableTransitionOnChange>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AuthProvider>
-          <BookingStoreProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <ScrollToTop />
-              <Navbar />
-              <div className="min-h-screen">
-                <AnimatedRoutes />
-              </div>
-              <Footer />
-            </BrowserRouter>
-          </BookingStoreProvider>
-        </AuthProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <AuthProvider>
+      <BookingStoreProvider>
+        <Toaster />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Navbar />
+          <div className="min-h-screen">
+            <AnimatedRoutes />
+          </div>
+          <Footer />
+        </BrowserRouter>
+      </BookingStoreProvider>
+    </AuthProvider>
   </ThemeProvider>
 );
 

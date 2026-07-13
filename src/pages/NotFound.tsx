@@ -11,9 +11,9 @@ const NotFound = () => {
       {/* Atmospheric background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/3 w-[400px] h-[400px] rounded-full opacity-[0.06] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(265, 68%, 60%)' }} />
+          style={{ background: 'hsl(38, 80%, 50%)' }} />
         <div className="absolute bottom-1/3 right-1/3 w-[300px] h-[300px] rounded-full opacity-[0.04] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(15, 66%, 55%)', animationDelay: '2s' }} />
+          style={{ background: 'hsl(350, 65%, 46%)', animationDelay: '2s' }} />
       </div>
 
       <div className="text-center relative z-10">

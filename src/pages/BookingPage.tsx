@@ -149,7 +149,7 @@ const BookingPage = () => {
                   className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500"
                   style={{
                     background: currentStep >= step.id ? 'var(--gradient-primary)' : 'hsl(var(--secondary))',
-                    color: currentStep >= step.id ? 'white' : 'hsl(var(--muted-foreground))',
+                    color: currentStep >= step.id ? 'hsl(var(--primary-foreground))' : 'hsl(var(--muted-foreground))',
                     boxShadow: currentStep >= step.id ? '0 0 16px -3px hsl(var(--primary) / 0.4)' : 'none',
                   }}
                 >

@@ -8,6 +8,16 @@
 
 <p align="center"><a href="https://high-concurrency-event-ticket-booki.vercel.app">Live Demo</a></p>
 
+## Screenshots
+
+| | |
+|---|---|
+| **Browse events** ![Homepage](docs/screenshots/01-homepage.jpg) | **Event detail** ![Event detail](docs/screenshots/02-event-detail.jpg) |
+| **Sign in** ![Login](docs/screenshots/03-login.jpg) | **Create account** ![Signup](docs/screenshots/04-signup.jpg) |
+| **Seat picker** ![Seat picker](docs/screenshots/05-booking-seat-picker.jpg) | **Booking confirmed** ![Booking confirmed](docs/screenshots/06-booking-confirmed.jpg) |
+| **User dashboard** ![User dashboard](docs/screenshots/07-user-dashboard.jpg) | **Admin — events** ![Admin dashboard](docs/screenshots/08-admin-dashboard.jpg) |
+| **Admin — bookings** ![Admin bookings](docs/screenshots/09-admin-bookings.jpg) | **404** ![Not found](docs/screenshots/10-not-found.jpg) |
+
 ## Overview
 
 Event ticket booking system where seat correctness is enforced server-side, not by the UI. A single-threaded Node HTTP server performs an atomic check-then-write on every booking request, so two concurrent requests for the same seat cannot both succeed — the loser receives a `409`.
@@ -61,9 +71,8 @@ Run `npm run dev` (client + API together) and attempt to book the same seat from
 
 | Layer | Technologies |
 |---|---|
-| Frontend | React 18, TypeScript, Vite, React Router, TanStack Query |
-| UI | Tailwind CSS, shadcn/ui, Radix UI, Framer Motion |
-| Forms | React Hook Form, Zod |
+| Frontend | React 18, TypeScript, Vite, React Router |
+| UI | Tailwind CSS (hand-owned components, no external UI kit), Framer Motion, self-hosted Outfit / JetBrains Mono |
 | Backend | Node.js `http` server, Server-Sent Events |
 | Tickets | jsPDF, `qrcode` |
 | Testing | Vitest, React Testing Library |
@@ -94,7 +103,7 @@ EventX/
 ├── server.js              # Atomic booking API + SSE seat-lock broadcaster
 ├── src/
 │   ├── pages/              # Route-level pages
-│   ├── components/         # Navbar, EventCard, SeatPicker, ui/ primitives
+│   ├── components/         # Navbar, EventCard, SeatPicker, CreateEventForm
 │   ├── hooks/               # useAuth, useBookingStore, useSeatLocks
 │   ├── utils/               # generateTicketPDF, seatLockService
 │   └── data/                 # Mock event data
