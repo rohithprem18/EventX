@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Secrets — copy .env.example to .env locally / set real values in Render
+.env
+.env.*
+!.env.example
+
 # Local agent tooling / skills config — not part of the shipped project
 .claude
 

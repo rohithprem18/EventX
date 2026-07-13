@@ -1,9 +1,11 @@
 /**
  * Seat Lock Service
  *
- * Coordinates seat locks with the local Node.js backend.
+ * Coordinates seat locks with the Node.js booking API (Postgres + Redis in
+ * production; see server/).
  * Automatically falls back to local storage locking if the backend is down.
  */
+import { API_BASE } from '@/lib/api';
 
 export const lockSeats = async (
   eventId: string,
@@ -11,7 +13,7 @@ export const lockSeats = async (
   seatIds: string[]
 ): Promise<void> => {
   try {
-    const response = await fetch('http://localhost:3001/api/lock', {
+    const response = await fetch(`${API_BASE}/api/lock`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ eventId, userId, seatIds }),
@@ -54,7 +56,7 @@ export const lockSeats = async (
 
 export const unlockSeats = async (eventId: string, userId: string): Promise<void> => {
   try {
-    const response = await fetch('http://localhost:3001/api/unlock', {
+    const response = await fetch(`${API_BASE}/api/unlock`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ eventId, userId }),

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Booking, mockBookings } from '@/data/mockData';
+import { API_BASE } from '@/lib/api';
 
 export interface BookingRecord extends Booking {
   userName: string;
@@ -72,7 +73,7 @@ export const BookingStoreProvider = ({ children }: { children: ReactNode }) => {
 
     const connect = () => {
       try {
-        eventSource = new EventSource('http://localhost:3001/api/stream');
+        eventSource = new EventSource(`${API_BASE}/api/stream`);
 
         eventSource.onopen = () => setBackendOnline(true);
 
@@ -151,7 +152,7 @@ export const BookingStoreProvider = ({ children }: { children: ReactNode }) => {
     // reachable server's rejection could get silently overridden by an
     // optimistic local "success".
     try {
-      const response = await fetch('http://localhost:3001/api/book', {
+      const response = await fetch(`${API_BASE}/api/book`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(booking),

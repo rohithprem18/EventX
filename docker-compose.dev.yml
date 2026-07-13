@@ -1,0 +1,42 @@
+# Local Postgres + Redis for developing/testing server/ — NOT used in
+# production (Render + Neon + Upstash, see README "Deployment"). This is
+# purely so `npm run dev:server` has something to talk to without needing
+# live cloud accounts.
+#
+# Usage:
+#   docker compose -f docker-compose.dev.yml up -d
+#   cp .env.example .env   # then set:
+#     DATABASE_URL=postgres://eventx:eventx@localhost:5433/eventx
+#     REDIS_URL=redis://localhost:6380
+#
+# Non-standard host ports (5433/6380) on purpose — 5432/6379 collide with
+# any Postgres/Redis you already have installed natively on the host.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: eventx
+      POSTGRES_PASSWORD: eventx
+      POSTGRES_DB: eventx
+    ports:
+      - '5433:5432'
+    volumes:
+      - eventx-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U eventx']
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6380:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  eventx-postgres-data:
