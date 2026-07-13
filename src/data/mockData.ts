@@ -532,14 +532,14 @@ export const mockBookings: Booking[] = [
 // ─── Category Config ───
 
 export const categories = [
-  { name: 'Music', icon: '🎵', color: 'hsl(265, 90%, 65%)' },
-  { name: 'Tech', icon: '💻', color: 'hsl(200, 90%, 55%)' },
-  { name: 'Comedy', icon: '😂', color: 'hsl(45, 95%, 55%)' },
-  { name: 'Film', icon: '🎬', color: 'hsl(340, 80%, 55%)' },
-  { name: 'Food', icon: '🍷', color: 'hsl(155, 72%, 48%)' },
-  { name: 'Sports', icon: '⚽', color: 'hsl(15, 90%, 62%)' },
-  { name: 'Art', icon: '🎨', color: 'hsl(290, 85%, 55%)' },
-  { name: 'Workshop', icon: '📚', color: 'hsl(170, 75%, 45%)' },
+  { name: 'Music', icon: '🎵', color: 'hsl(265, 68%, 60%)' },
+  { name: 'Tech', icon: '💻', color: 'hsl(200, 68%, 46%)' },
+  { name: 'Comedy', icon: '😂', color: 'hsl(45, 70%, 50%)' },
+  { name: 'Film', icon: '🎬', color: 'hsl(340, 62%, 52%)' },
+  { name: 'Food', icon: '🍷', color: 'hsl(155, 62%, 44%)' },
+  { name: 'Sports', icon: '⚽', color: 'hsl(15, 66%, 55%)' },
+  { name: 'Art', icon: '🎨', color: 'hsl(290, 60%, 55%)' },
+  { name: 'Workshop', icon: '📚', color: 'hsl(170, 60%, 40%)' },
 ];
 
 // ─── Helpers ───
