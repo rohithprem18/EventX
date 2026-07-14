@@ -25,7 +25,8 @@ Event ticket booking system where seat correctness is enforced by the database, 
 - Seat holds and new bookings reach every open tab within ~2 seconds via polling — see [Architecture](#architecture-why-this-cant-double-book-or-deadlock) below for why this is polling rather than a pushed stream.
 - An abandoned hold (closed tab, a request that never finished) expires on its own within 2 minutes. Nothing can get permanently stuck "locked."
 - If the API is unreachable at all, the client falls back to a `localStorage`-backed mode (Web Locks API) and surfaces a banner stating the double-booking guarantee no longer holds — it does not fail silently.
-- Event data is mocked (`src/data/mockData.ts`); bookings, seat locks, and the concurrency guarantee run against a real Postgres + Redis backed API (`api/`).
+- Event data is mocked (`src/data/mockData.ts`); bookings, seat locks, user accounts, and the concurrency guarantee all run against a real Postgres + Redis backed API (`api/`).
+- Accounts are real: passwords are hashed (bcrypt), sessions are a signed httpOnly cookie, verified independently of anything the client claims about itself.
 
 ## Key Features
 
@@ -35,7 +36,7 @@ Event ticket booking system where seat correctness is enforced by the database, 
 | Real-time-ish seat locks | Seat selection broadcasts a short-lived, auto-expiring hold; every connected client picks it up on its next ~2s poll. |
 | Booking flow | Seat picker, ticket count limit, live price calculation, optimistic UI with server reconciliation. |
 | PDF e-ticket | Boarding-pass-style PDF with a scannable QR code, seat numbers, and attendee details. |
-| Auth & roles | Login/signup, protected routes, separate user and admin dashboards. |
+| Auth & roles | Real registration/login (`api/auth/`) — bcrypt-hashed passwords, a signed httpOnly session cookie, protected routes, separate user and admin dashboards. |
 | Admin dashboard | Create, edit, delete events; view all bookings. |
 | Offline fallback | `localStorage`-backed booking when the API is unreachable, with an explicit reduced-guarantee banner. |
 | Light / dark theme | Toggle in the navbar, persisted across sessions. |
@@ -81,6 +82,15 @@ Why an abandoned hold can't cause a "stuck" seat: Redis TTLs expire on their own
 
 This was verified directly, not just reasoned about: the exact schema and transaction logic in `api/_lib/db.js` was run against a real local Postgres with two connections racing for the same seat — exactly one committed, the other hit the unique-violation and rolled back cleanly, with no partial multi-seat booking ever observable. The Redis lock-diff algorithm in `api/_lib/redis.js` was likewise run against a real local Redis: a second user is correctly blocked from a held seat, releasing a selection correctly frees only what was given up, and an abandoned lock expires on its own. (Both used the plain `pg`/`ioredis` clients for that local check, since `@neondatabase/serverless` and `@upstash/redis` specifically need a live Neon/Upstash endpoint to connect through — same SQL and same Redis commands either way, only the transport differs.)
 
+## Authentication
+
+Real accounts, not the localStorage-mock this project started with — `api/auth/{register,login,logout,me}.js`, backed by a `users` table in the same Postgres database (`api/_lib/auth.js`).
+
+- Passwords are hashed with `bcrypt` (never stored or logged in plaintext) and compared with `bcrypt.compare` — a wrong password and a nonexistent email get the same generic "Invalid email or password", so a login attempt can't be used to enumerate registered accounts.
+- A session is a JWT signed with `JWT_SECRET`, set as an `HttpOnly; Secure; SameSite=Lax` cookie — not readable from client JS, not sent cross-site, and stateless to verify (no session-table lookup on every request, just a signature + expiry check). `GET /api/auth/me` restores it on page load so a refresh doesn't log you out.
+- The email column is `UNIQUE`; a duplicate registration is rejected by Postgres itself (`23505`), the same pattern as the seat-booking guarantee.
+- A demo admin account is seeded automatically (`admin@example.com` / `admin1234`, shown on the login page) so the live deploy has an admin dashboard to look at without registering first — an intentionally public credential for a portfolio project, not a real account with anything at stake.
+
 ## Tech Stack
 
 | Layer | Technologies |
@@ -88,7 +98,8 @@ This was verified directly, not just reasoned about: the exact schema and transa
 | Frontend | React 18, TypeScript, Vite, React Router |
 | UI | Tailwind CSS (hand-owned components, no external UI kit), Framer Motion, self-hosted Outfit / JetBrains Mono |
 | Backend | Vercel Serverless Functions (`api/`), Node.js |
-| Data | Postgres via [Neon](https://neon.tech) (`@neondatabase/serverless`) — bookings, the double-booking constraint · Redis via [Upstash](https://upstash.com) (`@upstash/redis`) — seat locks |
+| Data | Postgres via [Neon](https://neon.tech) (`@neondatabase/serverless`) — bookings, users, the double-booking constraint · Redis via [Upstash](https://upstash.com) (`@upstash/redis`) — seat locks |
+| Auth | `bcryptjs` (password hashing), `jose` (JWT sessions) |
 | Tickets | jsPDF, `qrcode` |
 | Testing | Vitest, React Testing Library |
 
@@ -119,9 +130,10 @@ Without linking to a Vercel project, `npm run dev:client` (Vite alone) still wor
 Frontend and backend deploy together as one Vercel project — a static build plus the `api/` folder as serverless functions, wired by `vercel.json`.
 
 1. **Postgres — Neon.** If you've added the [Neon integration](https://vercel.com/marketplace/neon) from the Vercel dashboard to this project already, `DATABASE_URL` is set for you automatically — nothing to do. Otherwise: Storage tab → Create Database → Neon.
-2. **Redis — Upstash.** Add the [Upstash integration](https://vercel.com/marketplace/upstash) the same way (Storage tab → Create Database → Upstash → Redis). It sets `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, which `Redis.fromEnv()` in `api/_lib/redis.js` reads automatically — also nothing to configure by hand.
-3. Deploy (`git push` if the repo is already connected to a Vercel project, or `npx vercel --prod`). `api/_lib/db.js` applies the Postgres schema itself on first request (`CREATE TABLE IF NOT EXISTS`) — no separate migration step.
-4. That's it — no `VITE_API_URL`, no CORS config. Frontend and API are the same origin by construction.
+2. **Redis — Upstash.** Add the [Upstash integration](https://vercel.com/marketplace/upstash) the same way (Storage tab → Create Database → Upstash → Redis). It sets `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (or `KV_REST_API_URL` / `KV_REST_API_TOKEN` if added via the "KV" product naming — `api/_lib/redis.js` reads either), which `Redis.fromEnv()` picks up automatically — nothing to configure by hand.
+3. **Auth secret.** The one env var neither integration sets: generate one (`openssl rand -base64 32`) and add it as `JWT_SECRET` in the Vercel project's Environment Variables. Without it, every `api/auth/*` request throws on cold start.
+4. Deploy (`git push` if the repo is already connected to a Vercel project, or `npx vercel --prod`). `api/_lib/db.js` applies the Postgres schema itself on first request (`CREATE TABLE IF NOT EXISTS`), including seeding the demo admin account — no separate migration step.
+5. That's it — no `VITE_API_URL`, no CORS config. Frontend and API are the same origin by construction.
 
 Because correctness lives in Postgres and locks live in Redis rather than in any one invocation's memory, this scales to however many concurrent invocations Vercel runs without reintroducing double-booking — that's the whole point of the design in [Architecture](#architecture-why-this-cant-double-book-or-deadlock).
 
@@ -131,8 +143,14 @@ Because correctness lives in Postgres and locks live in Redis rather than in any
 EventX/
 ├── api/
 │   ├── _lib/
-│   │   ├── db.js             # Postgres: schema, commitBooking (the guarantee)
-│   │   └── redis.js           # Redis: seat locks (TTL)
+│   │   ├── db.js             # Postgres: schema, commitBooking (the guarantee), users
+│   │   ├── redis.js           # Redis: seat locks (TTL)
+│   │   └── auth.js             # bcrypt hashing, JWT session cookies
+│   ├── auth/
+│   │   ├── register.js         # POST — hash password, create user, set session
+│   │   ├── login.js             # POST — verify password, set session
+│   │   ├── logout.js             # POST — clear session
+│   │   └── me.js                  # GET  — restore session on page load
 │   ├── state.js               # GET  — polled every ~2s by the client
 │   ├── lock.js                 # POST — acquire/replace a user's seat holds
 │   ├── unlock.js                # POST — release a user's seat holds

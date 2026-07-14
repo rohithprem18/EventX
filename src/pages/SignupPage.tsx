@@ -10,14 +10,21 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !email.trim()) return;
-    signup(name, email, password);
-    navigate('/');
+    if (!name.trim()) { setError('Name is required'); return; }
+    if (!email.trim()) { setError('Email is required'); return; }
+    if (password.length < 8) { setError('Password must be at least 8 characters'); return; }
+    setSubmitting(true);
+    const result = await signup(name.trim(), email.trim(), password);
+    setSubmitting(false);
+    if (result.success) navigate('/');
+    else setError(result.error || 'Sign up failed');
   };
 
   return (
@@ -88,7 +95,7 @@ const SignupPage = () => {
               <input
                 type="text"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={e => { setName(e.target.value); setError(''); }}
                 className="input-glass"
                 placeholder="Your name"
               />
@@ -98,7 +105,7 @@ const SignupPage = () => {
               <input
                 type="email"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={e => { setEmail(e.target.value); setError(''); }}
                 className="input-glass"
                 placeholder="you@example.com"
               />
@@ -109,16 +116,19 @@ const SignupPage = () => {
                 <input
                   type={showPw ? 'text' : 'password'}
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={e => { setPassword(e.target.value); setError(''); }}
                   className="input-glass pr-10"
-                  placeholder="••••••••"
+                  placeholder="At least 8 characters"
                 />
                 <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
                   {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
-            <button type="submit" className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 cursor-pointer"
+
+            {error && <p className="text-sm text-destructive font-medium">{error}</p>}
+
+            <button type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               style={{
                 background: 'var(--gradient-accent)',
                 boxShadow: '0 4px 15px -3px hsla(350, 65%, 46%, 0.4)',
@@ -132,7 +142,7 @@ const SignupPage = () => {
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
               }}
             >
-              Create Account <ArrowRight className="w-4 h-4" />
+              {submitting ? 'Creating account...' : (<>Create Account <ArrowRight className="w-4 h-4" /></>)}
             </button>
           </form>
 

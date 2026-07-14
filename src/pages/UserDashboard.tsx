@@ -14,9 +14,11 @@ const statIcons = [
 ];
 
 const UserDashboard = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { bookings: storeBookings } = useBookingStore();
+
+  if (authLoading) return null;
 
   if (!user) {
     navigate('/login');

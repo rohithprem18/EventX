@@ -62,6 +62,24 @@ export function ensureSchema() {
 
       CREATE INDEX IF NOT EXISTS bookings_event_id_idx ON bookings (event_id);
       CREATE INDEX IF NOT EXISTS bookings_user_id_idx ON bookings (user_id);
+
+      CREATE TABLE IF NOT EXISTS users (
+        id            TEXT PRIMARY KEY,
+        name          TEXT NOT NULL,
+        email         TEXT NOT NULL UNIQUE,
+        password_hash TEXT NOT NULL,
+        role          TEXT NOT NULL DEFAULT 'user',
+        created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+
+      -- Demo account so the live deploy has something to log into without
+      -- registering first. Password is "admin1234" (see README) — this is
+      -- an intentionally public demo credential for a portfolio project,
+      -- not a real account with anything at stake; ON CONFLICT DO NOTHING
+      -- makes this safe to re-run on every cold start.
+      INSERT INTO users (id, name, email, password_hash, role)
+      VALUES ('demo-admin', 'Admin User', 'admin@example.com', '$2b$10$z1FehrJBNL6kh09quxd8zOJ5Moch3QyG26gtaEzo5CdNtftm7LZqG', 'admin')
+      ON CONFLICT (email) DO NOTHING;
     `
       )
       .catch((err) => {
@@ -70,6 +88,35 @@ export function ensureSchema() {
       });
   }
   return migrated;
+}
+
+const rowToUser = (r) => ({
+  id: r.id,
+  name: r.name,
+  email: r.email,
+  role: r.role,
+  createdAt: r.created_at.toISOString(),
+});
+
+export async function createUser({ id, name, email, passwordHash, role = 'user' }) {
+  const { rows } = await pool.query(
+    `INSERT INTO users (id, name, email, password_hash, role) VALUES ($1,$2,$3,$4,$5)
+     RETURNING *`,
+    [id, name, email, passwordHash, role]
+  );
+  return rowToUser(rows[0]);
+}
+
+/** Includes password_hash — only for the login path, never sent to the client. */
+export async function findUserByEmailWithHash(email) {
+  const { rows } = await pool.query('SELECT * FROM users WHERE email = $1', [email.toLowerCase()]);
+  if (!rows[0]) return null;
+  return { ...rowToUser(rows[0]), passwordHash: rows[0].password_hash };
+}
+
+export async function findUserById(id) {
+  const { rows } = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+  return rows[0] ? rowToUser(rows[0]) : null;
 }
 
 const rowToBooking = (r) => ({

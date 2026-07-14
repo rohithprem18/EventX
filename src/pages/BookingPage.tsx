@@ -20,7 +20,7 @@ const steps = [
 const BookingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { addBooking, bookings, backendOnline } = useBookingStore();
   const event = getEventById(id || '');
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
@@ -119,6 +119,8 @@ const BookingPage = () => {
       totalPrice: total,
     });
   };
+
+  if (authLoading) return null;
 
   if (!user) {
     navigate('/login');

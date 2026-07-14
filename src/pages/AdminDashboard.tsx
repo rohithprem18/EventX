@@ -18,7 +18,7 @@ const statConfig = [
 ];
 
 const AdminDashboard = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { bookings } = useBookingStore();
   const [events, setEvents] = useState<Event[]>(initialEvents);
@@ -27,6 +27,7 @@ const AdminDashboard = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'events' | 'bookings'>('events');
 
+  if (authLoading) return null;
   if (!user) { navigate('/login'); return null; }
 
   const totalRevenue = bookings.reduce((s, b) => {

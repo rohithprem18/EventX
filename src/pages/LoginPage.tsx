@@ -10,15 +10,19 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) { setError('Email is required'); return; }
-    const ok = login(email, password);
-    if (ok) navigate('/');
-    else setError('Login failed');
+    if (!password) { setError('Password is required'); return; }
+    setSubmitting(true);
+    const result = await login(email.trim(), password);
+    setSubmitting(false);
+    if (result.success) navigate('/');
+    else setError(result.error || 'Login failed');
   };
 
   return (
@@ -114,8 +118,8 @@ const LoginPage = () => {
 
             {error && <p className="text-sm text-destructive font-medium">{error}</p>}
 
-            <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
-              Sign In <ArrowRight className="w-4 h-4" />
+            <button type="submit" disabled={submitting} className="btn-primary w-full flex items-center justify-center gap-2">
+              {submitting ? 'Signing in...' : (<>Sign In <ArrowRight className="w-4 h-4" /></>)}
             </button>
           </form>
 
@@ -131,12 +135,12 @@ const LoginPage = () => {
           }}>
             <p className="font-semibold text-foreground mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gradient-primary)' }} />
-              Demo accounts
+              Demo admin account
             </p>
             <div className="space-y-1 text-muted-foreground text-xs">
-              <p>User: <span className="font-mono text-primary">alex@example.com</span></p>
-              <p>Admin: <span className="font-mono text-primary">admin@example.com</span></p>
-              <p className="italic pt-1">Any password works</p>
+              <p>Email: <span className="font-mono text-primary">admin@example.com</span></p>
+              <p>Password: <span className="font-mono text-primary">admin1234</span></p>
+              <p className="pt-1">New here? <Link to="/signup" className="text-primary font-semibold hover:underline">Create an account</Link> instead.</p>
             </div>
           </div>
         </motion.div>
