@@ -135,7 +135,7 @@ const CreateEventForm = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium mb-1 block flex items-center gap-1"><Calendar className="w-3 h-3 text-primary" /> Date & Time</label>
               <input type="datetime-local" value={form.date} onChange={e => update('date', e.target.value)} className={inputClass} />
@@ -148,7 +148,7 @@ const CreateEventForm = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium mb-1 block flex items-center gap-1"><DollarSign className="w-3 h-3 text-emerald-500" /> Price ($)</label>
               <input type="number" min="1" step="0.01" value={form.ticketPrice} onChange={e => update('ticketPrice', e.target.value)} className={inputClass} placeholder="49.99" />

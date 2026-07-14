@@ -108,61 +108,71 @@ const SeatPicker = ({
           style={{ background: 'var(--gradient-primary)' }} />
       </div>
 
-      {/* Seat grid */}
-      <div className="space-y-1.5">
-        {ROWS.map((row, rowIndex) => {
-          const seatCount = SEATS_PER_ROW[row];
-          return (
-            <motion.div
-              key={row}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: rowIndex * 0.04 }}
-              className="flex items-center justify-center gap-1"
-            >
-              <span className="w-6 text-[10px] font-bold text-muted-foreground text-right mr-1.5 select-none">
-                {row}
-              </span>
-              {Array.from({ length: seatCount }, (_, i) => {
-                const seatNum = i + 1;
-                const seatId = `${row}${seatNum}`;
-                const status = getSeatStatus(seatId);
-                const isDisabled = status === 'booked' || status === 'pending';
-                const style = seatStyles[status];
+      {/* Seat grid — the widest rows (14 seats) run wider than a phone
+          screen even at the smallest seat size, so this scrolls
+          horizontally on narrow viewports instead of overflowing the card
+          or the page. The negative margin/matching padding lets the scroll
+          area bleed to the card's edges on mobile, so there's real thumb
+          room to drag past the last seat. */}
+      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible">
+        <div className="space-y-1.5 w-max mx-auto sm:w-auto">
+          {ROWS.map((row, rowIndex) => {
+            const seatCount = SEATS_PER_ROW[row];
+            return (
+              <motion.div
+                key={row}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: rowIndex * 0.04 }}
+                className="flex items-center justify-center gap-1"
+              >
+                <span className="w-5 sm:w-6 text-[10px] font-bold text-muted-foreground text-right mr-1 sm:mr-1.5 select-none shrink-0">
+                  {row}
+                </span>
+                {Array.from({ length: seatCount }, (_, i) => {
+                  const seatNum = i + 1;
+                  const seatId = `${row}${seatNum}`;
+                  const status = getSeatStatus(seatId);
+                  const isDisabled = status === 'booked' || status === 'pending';
+                  const style = seatStyles[status];
 
-                return (
-                  <motion.button
-                    key={seatId}
-                    type="button"
-                    onClick={() => handleSeatClick(seatId)}
-                    disabled={isDisabled}
-                    whileTap={!isDisabled ? { scale: 0.85 } : undefined}
-                    whileHover={!isDisabled ? { scale: 1.1 } : undefined}
-                    className={`
-                      w-7 h-7 sm:w-8 sm:h-8 rounded-md border text-[10px] font-bold
-                      transition-all duration-200 flex items-center justify-center
-                      ${status === 'pending' ? 'animate-pulse' : ''}
-                    `}
-                    style={style as React.CSSProperties}
-                    title={
-                      status === 'pending'
-                        ? `Seat ${seatId} — Locked by another user`
-                        : status === 'booked'
-                        ? `Seat ${seatId} — Booked`
-                        : `Seat ${seatId}`
-                    }
-                  >
-                    {status === 'booked' ? '✕' : seatNum}
-                  </motion.button>
-                );
-              })}
-              <span className="w-6 text-[10px] font-bold text-muted-foreground text-left ml-1.5 select-none">
-                {row}
-              </span>
-            </motion.div>
-          );
-        })}
+                  return (
+                    <motion.button
+                      key={seatId}
+                      type="button"
+                      onClick={() => handleSeatClick(seatId)}
+                      disabled={isDisabled}
+                      whileTap={!isDisabled ? { scale: 0.85 } : undefined}
+                      whileHover={!isDisabled ? { scale: 1.1 } : undefined}
+                      className={`
+                        w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md border text-[10px] font-bold
+                        transition-all duration-200 flex items-center justify-center shrink-0
+                        ${status === 'pending' ? 'animate-pulse' : ''}
+                      `}
+                      style={style as React.CSSProperties}
+                      title={
+                        status === 'pending'
+                          ? `Seat ${seatId} — Locked by another user`
+                          : status === 'booked'
+                          ? `Seat ${seatId} — Booked`
+                          : `Seat ${seatId}`
+                      }
+                    >
+                      {status === 'booked' ? '✕' : seatNum}
+                    </motion.button>
+                  );
+                })}
+                <span className="w-5 sm:w-6 text-[10px] font-bold text-muted-foreground text-left ml-1 sm:ml-1.5 select-none shrink-0">
+                  {row}
+                </span>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
+      <p className="text-center text-[11px] text-muted-foreground/60 sm:hidden -mt-1">
+        Swipe sideways to see every seat
+      </p>
 
       {/* Legend */}
       <div className="flex items-center justify-center gap-5 sm:gap-6 pt-4 text-xs text-muted-foreground flex-wrap">

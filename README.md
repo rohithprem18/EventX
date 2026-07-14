@@ -6,7 +6,7 @@
   </picture>
 </p>
 
-<p align="center"><a href="https://high-concurrency-event-ticket-booki.vercel.app">Live Demo</a></p>
+<p align="center"><a href="https://event-x-ruby-six.vercel.app">Live Demo</a></p>
 
 ## Screenshots
 
@@ -67,8 +67,8 @@ sequenceDiagram
         B->>F2: POST /api/book (seat A12)
     end
 
-    F1->>PG: BEGIN; INSERT booked_seats(e1, A12); COMMIT
-    F2->>PG: BEGIN; INSERT booked_seats(e1, A12); COMMIT
+    F1->>PG: BEGIN → INSERT booked_seats(e1, A12) → COMMIT
+    F2->>PG: BEGIN → INSERT booked_seats(e1, A12) → COMMIT
 
     Note over PG: Composite primary key (event_id, seat_id).<br/>The second INSERT hits a unique-violation —<br/>Postgres itself decides the winner, not either invocation.
 
