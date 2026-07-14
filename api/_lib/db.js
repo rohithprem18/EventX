@@ -3,59 +3,73 @@
 // The whole double-booking guarantee lives in one place: the composite
 // primary key on booked_seats(event_id, seat_id). A second INSERT for a
 // seat that's already booked is rejected by Postgres itself (23505 unique
-// violation) inside an atomic transaction, so the guarantee holds no matter
-// how many server instances are running concurrently — unlike the previous
-// single-process in-memory design, which only worked because Node is
-// single-threaded and broke the moment you ran more than one instance.
-import pg from 'pg';
+// violation) inside an atomic transaction, so the guarantee holds no
+// matter how many function invocations are running concurrently.
+//
+// @neondatabase/serverless is Neon's own driver: a drop-in for node-postgres
+// (same Pool/Client/transaction API) that talks to Neon over a WebSocket
+// instead of a raw TCP connection, which is what actually makes it safe to
+// use from a serverless function — a normal TCP pool doesn't survive a
+// function being frozen/recycled between invocations the way this does.
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import ws from 'ws';
 
-const { Pool } = pg;
+// Only strictly required on Node < 22, where a native WebSocket global
+// isn't available yet; harmless to set unconditionally.
+neonConfig.webSocketConstructor = ws;
 
-if (!process.env.DATABASE_URL) {
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
   throw new Error(
-    'DATABASE_URL is not set. Point it at a Postgres connection string ' +
-      '(see .env.example / README "Deployment" section).'
+    'DATABASE_URL is not set. This is injected automatically once the Neon ' +
+      'integration is added to the Vercel project — see README "Deployment".'
   );
 }
 
-export const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  // Managed Postgres providers (Neon, Supabase, Render Postgres, ...)
-  // terminate TLS but usually present a cert chain node's default CA
-  // bundle won't validate. This matches how those providers document
-  // connecting from a plain `pg` client.
-  ssl: process.env.DATABASE_SSL === 'false' ? false : { rejectUnauthorized: false },
-});
+export const pool = new Pool({ connectionString });
 
-// Idempotent — safe to run on every boot. No separate migration step to
-// remember before deploying.
-export async function runMigrations() {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS bookings (
-      id            TEXT PRIMARY KEY,
-      event_id      TEXT NOT NULL,
-      user_id       TEXT NOT NULL,
-      user_name     TEXT NOT NULL,
-      user_email    TEXT NOT NULL,
-      ticket_id     TEXT NOT NULL UNIQUE,
-      ticket_count  INTEGER NOT NULL,
-      seat_numbers  TEXT[] NOT NULL,
-      status        TEXT NOT NULL DEFAULT 'confirmed',
-      booked_at     TIMESTAMPTZ NOT NULL DEFAULT now()
-    );
+// Cached per warm serverless instance so the CREATE TABLE statements run
+// once per cold start, not once per request. If it fails, the cache is
+// cleared so the next invocation gets a clean retry instead of being stuck
+// on a rejected promise forever.
+let migrated = null;
+export function ensureSchema() {
+  if (!migrated) {
+    migrated = pool
+      .query(
+        `
+      CREATE TABLE IF NOT EXISTS bookings (
+        id            TEXT PRIMARY KEY,
+        event_id      TEXT NOT NULL,
+        user_id       TEXT NOT NULL,
+        user_name     TEXT NOT NULL,
+        user_email    TEXT NOT NULL,
+        ticket_id     TEXT NOT NULL UNIQUE,
+        ticket_count  INTEGER NOT NULL,
+        seat_numbers  TEXT[] NOT NULL,
+        status        TEXT NOT NULL DEFAULT 'confirmed',
+        booked_at     TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
 
-    -- The concurrency guarantee. One row per seat that has ever been
-    -- booked for an event; the primary key makes a collision impossible.
-    CREATE TABLE IF NOT EXISTS booked_seats (
-      event_id   TEXT NOT NULL,
-      seat_id    TEXT NOT NULL,
-      booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
-      PRIMARY KEY (event_id, seat_id)
-    );
+      -- The concurrency guarantee. One row per seat that has ever been
+      -- booked for an event; the primary key makes a collision impossible.
+      CREATE TABLE IF NOT EXISTS booked_seats (
+        event_id   TEXT NOT NULL,
+        seat_id    TEXT NOT NULL,
+        booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+        PRIMARY KEY (event_id, seat_id)
+      );
 
-    CREATE INDEX IF NOT EXISTS bookings_event_id_idx ON bookings (event_id);
-    CREATE INDEX IF NOT EXISTS bookings_user_id_idx ON bookings (user_id);
-  `);
+      CREATE INDEX IF NOT EXISTS bookings_event_id_idx ON bookings (event_id);
+      CREATE INDEX IF NOT EXISTS bookings_user_id_idx ON bookings (user_id);
+    `
+      )
+      .catch((err) => {
+        migrated = null;
+        throw err;
+      });
+  }
+  return migrated;
 }
 
 const rowToBooking = (r) => ({
@@ -119,8 +133,6 @@ export async function commitBooking(booking) {
     await client.query('ROLLBACK');
 
     if (err.code === '23505' && err.table === 'booked_seats') {
-      // Find out exactly which of the requested seats are already taken,
-      // and by whom, so the client can show a precise collision message.
       const { rows } = await pool.query(
         `SELECT bs.seat_id, b.user_name
            FROM booked_seats bs
