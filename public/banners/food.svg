@@ -1,0 +1,63 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Indian street-food night market, thali motif">
+  <title>Food — night food market, thali motif</title>
+  <defs>
+    <linearGradient id="foodSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C1006"/>
+      <stop offset="55%" stop-color="#3A1B0C"/>
+      <stop offset="100%" stop-color="#5C2A0F"/>
+    </linearGradient>
+    <radialGradient id="thaliGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E2A13A" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#C12942" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#C12942" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bulbGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FDE7B0"/>
+      <stop offset="100%" stop-color="#FDE7B0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#foodSky)"/>
+
+  <!-- string lights across the top -->
+  <path d="M0,90 Q400,20 800,90 Q1200,20 1600,90" fill="none" stroke="#3A1B0C" stroke-width="3" opacity="0.8"/>
+  <g>
+    <g transform="translate(120,78)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(280,50)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(440,72)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(600,40)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(760,80)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(920,45)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(1080,75)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(1240,42)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(1400,78)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+    <g transform="translate(1540,50)"><circle r="16" fill="url(#bulbGlow)"/><circle r="6" fill="#FDE7B0"/></g>
+  </g>
+
+  <!-- stall silhouettes -->
+  <g fill="#160C05">
+    <path d="M0,1000 L0,700 L120,650 L240,700 L240,1000 Z"/>
+    <path d="M1360,1000 L1360,690 L1480,635 L1600,690 L1600,1000 Z"/>
+  </g>
+
+  <!-- large thali (plate), central motif: concentric rings + small "katori" bowls -->
+  <g transform="translate(800,560)">
+    <circle r="230" fill="url(#thaliGlow)"/>
+    <circle r="210" fill="none" stroke="#E2A13A" stroke-width="6" opacity="0.8"/>
+    <circle r="150" fill="none" stroke="#E2A13A" stroke-width="4" opacity="0.6"/>
+    <circle r="60" fill="#E2A13A" opacity="0.5"/>
+    <g opacity="0.85">
+      <circle cx="-140" cy="-90" r="34" fill="#C12942"/>
+      <circle cx="140" cy="-90" r="34" fill="#E2A13A"/>
+      <circle cx="-160" cy="70" r="30" fill="#E2A13A"/>
+      <circle cx="160" cy="70" r="30" fill="#C12942"/>
+      <circle cx="0" cy="150" r="32" fill="#E2A13A"/>
+    </g>
+  </g>
+
+  <!-- steam wisps -->
+  <g stroke="#FDE7B0" stroke-width="5" fill="none" opacity="0.4" stroke-linecap="round">
+    <path d="M700,340 Q680,300 700,260 Q720,220 700,180"/>
+    <path d="M900,340 Q920,300 900,260 Q880,220 900,180"/>
+  </g>
+</svg>

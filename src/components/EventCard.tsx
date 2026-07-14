@@ -104,7 +104,7 @@ const EventCard = ({ event, index = 0 }: { event: Event; index?: number }) => {
             borderTop: '1px solid hsl(var(--border))',
           }}>
             <span className="font-heading font-bold text-xl text-foreground">
-              ${event.ticketPrice}
+              ₹{event.ticketPrice.toLocaleString('en-IN')}
             </span>
             <span className="text-xs font-semibold flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{
               color: availColor.text,

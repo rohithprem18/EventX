@@ -30,7 +30,7 @@ const UserDashboard = () => {
   const stats = [
     { label: 'Total Bookings', value: bookings.length },
     { label: 'Tickets Purchased', value: bookings.reduce((s, b) => s + b.ticketCount, 0) },
-    { label: 'Total Spent', value: `$${bookings.reduce((s, b) => { const e = getEventById(b.eventId); return s + (e ? e.ticketPrice * b.ticketCount : 0); }, 0)}` },
+    { label: 'Total Spent', value: `₹${bookings.reduce((s, b) => { const e = getEventById(b.eventId); return s + (e ? e.ticketPrice * b.ticketCount : 0); }, 0).toLocaleString('en-IN')}` },
   ];
 
   return (

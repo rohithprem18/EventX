@@ -3,7 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { mockEvents as initialEvents, getEventById, Event } from '@/data/mockData';
 import { useBookingStore } from '@/hooks/useBookingStore';
 import { useNavigate } from 'react-router-dom';
-import { Ticket, DollarSign, Calendar, Users, Plus, Pencil, Trash2, MoreVertical, Eye } from 'lucide-react';
+import { Ticket, IndianRupee, Calendar, Users, Plus, Pencil, Trash2, MoreVertical, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 const statConfig = [
   { icon: Calendar, gradient: 'var(--gradient-primary)', glow: 'hsla(38, 80%, 50%, 0.2)', dark: true },
   { icon: Ticket, gradient: 'var(--gradient-accent)', glow: 'hsla(350, 65%, 46%, 0.2)', dark: false },
-  { icon: DollarSign, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)', dark: false },
+  { icon: IndianRupee, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)', dark: false },
   { icon: Users, gradient: 'linear-gradient(135deg, hsl(200, 70%, 48%), hsl(210, 66%, 40%))', glow: 'hsla(200, 70%, 48%, 0.2)', dark: false },
 ];
 
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
   const statsData = [
     { label: 'Events', value: events.length },
     { label: 'Sold', value: totalTicketsSold },
-    { label: 'Revenue', value: `$${totalRevenue.toLocaleString()}` },
+    { label: 'Revenue', value: `₹${totalRevenue.toLocaleString('en-IN')}` },
     { label: 'Bookings', value: bookings.length },
   ];
 
@@ -190,7 +190,7 @@ const AdminDashboard = () => {
                       </td>
                       <td className="p-3 text-xs text-muted-foreground">{format(new Date(event.date), 'MMM dd, yyyy')}</td>
                       <td className="p-3 text-xs text-muted-foreground max-w-[150px] truncate">{event.venue}</td>
-                      <td className="p-3 text-right text-sm font-semibold">${event.ticketPrice}</td>
+                      <td className="p-3 text-right text-sm font-semibold">₹{event.ticketPrice.toLocaleString('en-IN')}</td>
                       <td className="p-3 text-right text-sm">{event.availableTickets}/{event.totalTickets}</td>
                       <td className="p-3 text-right">
                         <div className="flex items-center justify-end gap-1">
@@ -241,7 +241,7 @@ const AdminDashboard = () => {
                       background: 'hsl(var(--primary) / 0.1)',
                       color: 'hsl(var(--primary))',
                     }}>{event.category}</span>
-                    <span className="text-muted-foreground">${event.ticketPrice}</span>
+                    <span className="text-muted-foreground">₹{event.ticketPrice.toLocaleString('en-IN')}</span>
                     <span className="text-muted-foreground">{event.availableTickets} avail</span>
                   </div>
                 </div>
@@ -314,7 +314,7 @@ const AdminDashboard = () => {
                             <td className="p-3 text-sm max-w-[180px] truncate">{event?.title || 'Unknown'}</td>
                             <td className="p-3 font-mono text-xs">{booking.seatNumbers.join(', ')}</td>
                             <td className="p-3 text-right text-sm">{booking.ticketCount}</td>
-                            <td className="p-3 text-right text-sm font-semibold">${event ? event.ticketPrice * booking.ticketCount : 0}</td>
+                            <td className="p-3 text-right text-sm font-semibold">₹{(event ? event.ticketPrice * booking.ticketCount : 0).toLocaleString('en-IN')}</td>
                             <td className="p-3 text-right">
                               <span className="text-xs font-bold px-2.5 py-1 rounded-full capitalize" style={{
                                 background: 'hsla(155, 72%, 48%, 0.12)',
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
                         <div className="flex items-center gap-3 text-xs text-muted-foreground">
                           <span className="font-mono font-bold text-primary">{booking.ticketId}</span>
                           <span>{booking.ticketCount} ticket{booking.ticketCount > 1 ? 's' : ''}</span>
-                          <span className="font-semibold text-foreground">${event ? event.ticketPrice * booking.ticketCount : 0}</span>
+                          <span className="font-semibold text-foreground">₹{(event ? event.ticketPrice * booking.ticketCount : 0).toLocaleString('en-IN')}</span>
                         </div>
                       </div>
                     );

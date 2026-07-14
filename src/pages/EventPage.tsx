@@ -120,7 +120,7 @@ const EventPage = () => {
               <div>
                 <span className="text-sm text-muted-foreground">Price per ticket</span>
                 <p className="font-heading text-4xl font-extrabold mt-1 text-foreground">
-                  ${event.ticketPrice}
+                  ₹{event.ticketPrice.toLocaleString('en-IN')}
                 </p>
               </div>
 

@@ -226,7 +226,12 @@ export const generateTicketPDF = async (data: TicketData) => {
   doc.saveGraphicsState();
   doc.setGState(new GState({ opacity: 0.85 }));
   doc.text(
-    `${ticketCount} SEAT${ticketCount > 1 ? 'S' : ''} · $${totalPrice}`,
+    // "Rs." rather than "₹" — jsPDF's built-in Helvetica font uses WinAnsi
+    // encoding, which has no glyph for the rupee sign (confirmed by
+    // rendering it and extracting the text: it comes back as U+FFFD, a
+    // broken-box character, not ₹). A real ₹ glyph needs a custom embedded
+    // Unicode font; "Rs." is the safe, universally-supported fallback.
+    `${ticketCount} SEAT${ticketCount > 1 ? 'S' : ''} · Rs. ${totalPrice.toLocaleString('en-IN')}`,
     stubCenterX,
     qrPanelY + qrPanel + 12.5,
     { align: 'center', charSpace: 0.2 }
@@ -363,7 +368,7 @@ export const generateTicketPDF = async (data: TicketData) => {
   setText(doc, PALETTE.ink);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(13);
-  doc.text(`$${totalPrice}`, rightBound, footerY + 8, { align: 'right' });
+  doc.text(`Rs. ${totalPrice.toLocaleString('en-IN')}`, rightBound, footerY + 8, { align: 'right' });
 
   doc.save(`${ticketId}-ticket.pdf`);
 };

@@ -200,7 +200,7 @@ const BookingPage = () => {
                 <div className="flex justify-between"><span className="text-muted-foreground">Seats</span><span className="font-mono">{selectedSeats.join(', ')}</span></div>
                 <div className="flex justify-between pt-2" style={{ borderTop: '1px solid hsl(var(--border))' }}>
                   <span className="text-muted-foreground">Total</span>
-                  <span className="font-heading font-extrabold text-xl text-foreground">${total}</span>
+                  <span className="font-heading font-extrabold text-xl text-foreground">₹{total.toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
@@ -369,16 +369,16 @@ const BookingPage = () => {
 
                 <div className="pt-4 space-y-3" style={{ borderTop: '1px solid hsl(var(--border))' }}>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{ticketCount}x Ticket @ ${event.ticketPrice}</span>
-                    <span>${total}</span>
+                    <span className="text-muted-foreground">{ticketCount}x Ticket @ ₹{event.ticketPrice.toLocaleString('en-IN')}</span>
+                    <span>₹{total.toLocaleString('en-IN')}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Service fee</span>
-                    <span>$0</span>
+                    <span>₹0</span>
                   </div>
                   <div className="flex justify-between font-heading font-extrabold text-xl pt-3" style={{ borderTop: '1px solid hsl(var(--border))' }}>
                     <span>Total</span>
-                    <span className="text-foreground">${total}</span>
+                    <span className="text-foreground">₹{total.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
 
