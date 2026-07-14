@@ -54,7 +54,7 @@ const SignupPage = () => {
           {/* Deliberate dark brand panel within the light theme (see note
               below) — hardcode a light wordmark instead of the (now dark)
               --foreground token. */}
-          <h2 className="font-heading text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>Join EventX</h2>
+          <h2 className="font-display text-4xl font-bold mb-4" style={{ color: '#fff' }}>Join EventX</h2>
           {/* Deliberate dark brand panel within the light theme — hardcode
               light copy instead of the (now dark) --muted-foreground token. */}
           <p className="text-lg leading-relaxed max-w-sm mx-auto" style={{ color: 'hsla(220, 20%, 92%, 0.75)' }}>
@@ -81,11 +81,11 @@ const SignupPage = () => {
               style={{ background: 'var(--gradient-accent)' }}>
               <Ticket className="w-6 h-6 text-white" />
             </div>
-            <span className="font-heading text-2xl font-bold text-foreground">EventX</span>
+            <span className="font-display text-2xl font-bold text-foreground">EventX</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="font-heading text-3xl font-extrabold mb-2">Create account</h1>
+            <h1 className="font-display text-3xl font-bold mb-2">Create account</h1>
             <p className="text-muted-foreground">Join EventX and start booking</p>
           </div>
 

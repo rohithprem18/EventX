@@ -78,10 +78,10 @@ const HomePage = () => {
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="max-w-2xl"
           >
-            <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold leading-[0.95] tracking-tight text-white mb-5">
+            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-black leading-[0.95] tracking-tight text-white mb-5">
               Book tickets.
               <br />
-              <span className="gradient-text">Lightning fast.</span>
+              <span style={{ color: 'hsl(var(--primary))' }}>Lightning fast.</span>
             </h1>
             <p className="text-base sm:text-lg max-w-lg mb-8" style={{ color: 'hsla(220, 20%, 92%, 0.8)' }}>
               Search an event, pick a seat, get a ticket — with a booking guarantee enforced
@@ -131,7 +131,7 @@ const HomePage = () => {
       <section className="container mx-auto px-4 py-16">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-1 h-6 rounded-full" style={{ background: 'var(--gradient-primary)' }} />
-          <h2 className="font-heading text-2xl font-bold">Browse by category</h2>
+          <h2 className="font-display text-2xl font-bold">Browse by category</h2>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {categoryTiles.map(tile => (
@@ -168,7 +168,7 @@ const HomePage = () => {
         <section className="container mx-auto px-4 pb-16">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-1 h-6 rounded-full" style={{ background: 'var(--gradient-accent)' }} />
-            <h2 className="font-heading text-2xl font-bold">Featured events</h2>
+            <h2 className="font-display text-2xl font-bold">Featured events</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
@@ -190,7 +190,7 @@ const HomePage = () => {
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <div className="w-1 h-6 rounded-full" style={{ background: 'var(--gradient-primary)' }} />
-            <h2 className="font-heading text-2xl font-bold">
+            <h2 className="font-display text-2xl font-bold">
               {search ? 'Search results' : 'Upcoming events'}
             </h2>
           </div>
@@ -247,7 +247,7 @@ const HomePage = () => {
       {!user && (
         <section className="border-t" style={{ borderColor: 'hsl(var(--border))', background: 'hsl(var(--secondary))' }}>
           <div className="container mx-auto px-4 py-20 text-center max-w-xl">
-            <h2 className="font-heading text-3xl sm:text-4xl font-extrabold mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
               Create an account to start booking
             </h2>
             <p className="text-muted-foreground mb-8">

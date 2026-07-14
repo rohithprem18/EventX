@@ -89,7 +89,7 @@ const Navbar = () => {
             style={{ background: 'var(--gradient-primary)' }}>
             <Ticket className="w-4 h-4" style={{ color: 'hsl(var(--primary-foreground))' }} />
           </div>
-          <span className="font-heading text-xl font-bold text-foreground">EventX</span>
+          <span className="font-display text-xl font-bold text-foreground">EventX</span>
         </Link>
 
         {/* Desktop Nav */}

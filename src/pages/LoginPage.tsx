@@ -52,7 +52,7 @@ const LoginPage = () => {
           {/* This panel is a deliberate dark brand accent within the light
               theme (see note below), so the wordmark is hardcoded light
               rather than relying on the (now dark) --foreground token. */}
-          <h2 className="font-heading text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>EventX</h2>
+          <h2 className="font-display text-4xl font-bold mb-4" style={{ color: '#fff' }}>EventX</h2>
           {/* This panel is a deliberate dark brand accent within the light
               theme, so its body copy is hardcoded light rather than using
               the (now dark) --muted-foreground token. */}
@@ -81,11 +81,11 @@ const LoginPage = () => {
               style={{ background: 'var(--gradient-primary)' }}>
               <Ticket className="w-6 h-6" style={{ color: 'hsl(var(--primary-foreground))' }} />
             </div>
-            <span className="font-heading text-2xl font-bold text-foreground">EventX</span>
+            <span className="font-display text-2xl font-bold text-foreground">EventX</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="font-heading text-3xl font-extrabold mb-2">Welcome back</h1>
+            <h1 className="font-display text-3xl font-bold mb-2">Welcome back</h1>
             <p className="text-muted-foreground">Sign in to your EventX account</p>
           </div>
 

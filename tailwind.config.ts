@@ -14,6 +14,11 @@ export default {
       fontFamily: {
         sans: ["Outfit", "system-ui", "sans-serif"],
         heading: ["Outfit", "system-ui", "sans-serif"],
+        // The app's one display voice — event titles, page headlines, the
+        // brand wordmark. Reserved for genuine "marquee" moments; dense UI
+        // (dashboards, forms, tables) stays on font-heading (Outfit) for
+        // scanability. See src/index.css for the shared tracking/weight rules.
+        display: ["Fraunces", "Georgia", "serif"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
       colors: {

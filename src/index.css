@@ -209,14 +209,6 @@
     box-shadow: var(--shadow-card);
   }
 
-  /* ─── Gradient Text ─── */
-  .gradient-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
   /* ─── Gradient Border ─── */
   .gradient-border {
     position: relative;

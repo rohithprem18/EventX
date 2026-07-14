@@ -32,7 +32,7 @@ const Footer = () => {
                 style={{ background: 'var(--gradient-primary)' }}>
                 <Ticket className="w-4 h-4" style={{ color: 'hsl(var(--primary-foreground))' }} />
               </div>
-              <span className="font-heading text-xl font-bold text-foreground">EventX</span>
+              <span className="font-display text-xl font-bold text-foreground">EventX</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px]">
               Book event tickets with lightning-fast concurrency. No double bookings, no stress.

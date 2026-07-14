@@ -87,7 +87,7 @@ const EventCard = ({ event, index = 0 }: { event: Event; index?: number }) => {
 
         {/* Content */}
         <div className="p-5 space-y-3">
-          <h3 className="font-heading font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-1">
+          <h3 className="font-display font-semibold text-lg text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-1">
             {event.title}
           </h3>
           <div className="flex flex-col gap-1.5 text-sm text-muted-foreground">

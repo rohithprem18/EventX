@@ -70,7 +70,7 @@ const EventPage = () => {
               }}>
                 {event.category}
               </span>
-              <h1 className="font-heading text-3xl md:text-5xl font-extrabold mt-4 leading-tight">{event.title}</h1>
+              <h1 className="font-display text-3xl md:text-5xl font-bold mt-4 leading-tight">{event.title}</h1>
             </div>
 
             <div className="flex flex-wrap gap-5 text-muted-foreground text-sm">
