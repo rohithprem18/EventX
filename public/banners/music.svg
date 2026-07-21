@@ -1,0 +1,66 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diwali-lit open-air music festival">
+  <title>Music — festival night, diya-lit stage</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B0D16"/>
+      <stop offset="55%" stop-color="#1A1330"/>
+      <stop offset="100%" stop-color="#3A1526"/>
+    </linearGradient>
+    <radialGradient id="stageGlow" cx="50%" cy="100%" r="75%">
+      <stop offset="0%" stop-color="#E2A13A" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="#C12942" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#C12942" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="diya" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FDE7B0"/>
+      <stop offset="45%" stop-color="#E2A13A" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#E2A13A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E2A13A" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#E2A13A" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <rect width="1600" height="1000" fill="url(#stageGlow)"/>
+
+  <!-- Stage light beams -->
+  <g opacity="0.8">
+    <polygon points="520,0 760,0 900,760 380,760" fill="url(#beam)"/>
+    <polygon points="900,0 1140,0 1260,760 780,760" fill="url(#beam)"/>
+  </g>
+
+  <!-- Marigold garland buntings across the top -->
+  <g fill="none" stroke="#C12942" stroke-width="3" opacity="0.7">
+    <path d="M0,70 Q200,170 400,80 Q600,180 800,75 Q1000,175 1200,70 Q1400,165 1600,60"/>
+  </g>
+  <g>
+    <!-- marigold beads along the garland, alternating gold/crimson -->
+    <circle cx="80" cy="95" r="9" fill="#E2A13A"/><circle cx="160" cy="140" r="9" fill="#C12942"/>
+    <circle cx="240" cy="150" r="9" fill="#E2A13A"/><circle cx="320" cy="115" r="9" fill="#C12942"/>
+    <circle cx="400" cy="82" r="9" fill="#E2A13A"/><circle cx="480" cy="120" r="9" fill="#C12942"/>
+    <circle cx="560" cy="155" r="9" fill="#E2A13A"/><circle cx="640" cy="130" r="9" fill="#C12942"/>
+    <circle cx="720" cy="90" r="9" fill="#E2A13A"/><circle cx="800" cy="78" r="9" fill="#C12942"/>
+    <circle cx="880" cy="115" r="9" fill="#E2A13A"/><circle cx="960" cy="150" r="9" fill="#C12942"/>
+    <circle cx="1040" cy="130" r="9" fill="#E2A13A"/><circle cx="1120" cy="90" r="9" fill="#C12942"/>
+    <circle cx="1200" cy="72" r="9" fill="#E2A13A"/><circle cx="1280" cy="105" r="9" fill="#C12942"/>
+    <circle cx="1360" cy="140" r="9" fill="#E2A13A"/><circle cx="1440" cy="110" r="9" fill="#C12942"/>
+    <circle cx="1520" cy="75" r="9" fill="#E2A13A"/>
+  </g>
+
+  <!-- Crowd silhouette with raised arms, backlit -->
+  <g fill="#05060B">
+    <path d="M0,1000 L0,830 Q60,800 120,835 Q160,760 190,838 Q230,795 260,840 L300,838 Q330,770 365,840 Q410,800 440,838 Q480,770 515,838 Q560,800 600,835 L640,838 Q670,780 705,838 Q745,795 780,840 Q815,775 850,838 Q890,800 930,835 L965,838 Q995,775 1030,838 Q1075,795 1110,840 Q1145,770 1180,838 Q1220,800 1260,835 L1295,838 Q1325,775 1360,838 Q1405,795 1440,840 Q1480,770 1515,838 Q1555,800 1600,830 L1600,1000 Z"/>
+  </g>
+
+  <!-- Diya row along the very bottom, warm glow -->
+  <g>
+    <g transform="translate(120,935)"><circle r="34" fill="url(#diya)"/><path d="M-16,6 Q0,-14 16,6 Q0,16 -16,6 Z" fill="#3A1526"/><path d="M0,-14 Q4,-24 0,-32 Q-4,-24 0,-14 Z" fill="#FDE7B0"/></g>
+    <g transform="translate(360,948)"><circle r="30" fill="url(#diya)"/><path d="M-14,5 Q0,-12 14,5 Q0,14 -14,5 Z" fill="#3A1526"/><path d="M0,-12 Q3,-21 0,-28 Q-3,-21 0,-12 Z" fill="#FDE7B0"/></g>
+    <g transform="translate(620,930)"><circle r="36" fill="url(#diya)"/><path d="M-17,6 Q0,-15 17,6 Q0,17 -17,6 Z" fill="#3A1526"/><path d="M0,-15 Q4,-25 0,-33 Q-4,-25 0,-15 Z" fill="#FDE7B0"/></g>
+    <g transform="translate(880,945)"><circle r="32" fill="url(#diya)"/><path d="M-15,5 Q0,-13 15,5 Q0,15 -15,5 Z" fill="#3A1526"/><path d="M0,-13 Q3,-22 0,-30 Q-3,-22 0,-13 Z" fill="#FDE7B0"/></g>
+    <g transform="translate(1140,932)"><circle r="35" fill="url(#diya)"/><path d="M-16,6 Q0,-14 16,6 Q0,16 -16,6 Z" fill="#3A1526"/><path d="M0,-14 Q4,-24 0,-32 Q-4,-24 0,-14 Z" fill="#FDE7B0"/></g>
+    <g transform="translate(1400,946)"><circle r="30" fill="url(#diya)"/><path d="M-14,5 Q0,-12 14,5 Q0,14 -14,5 Z" fill="#3A1526"/><path d="M0,-12 Q3,-21 0,-28 Q-3,-21 0,-12 Z" fill="#FDE7B0"/></g>
+  </g>
+</svg>
