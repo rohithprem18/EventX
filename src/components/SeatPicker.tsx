@@ -100,7 +100,7 @@ const SeatPicker = ({
         <div
           className="h-[2px] w-full"
           style={{
-            background: 'linear-gradient(90deg, transparent, hsla(38, 80%, 50%, 0.4), hsla(350, 65%, 46%, 0.3), transparent)',
+            background: 'linear-gradient(90deg, transparent, hsla(38, 80%, 50%, 0.4), hsla(28, 68%, 52%, 0.3), transparent)',
           }}
         />
         {/* Stage glow */}

@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 
 const statConfig = [
   { icon: Calendar, gradient: 'var(--gradient-primary)', glow: 'hsla(38, 80%, 50%, 0.2)', dark: true },
-  { icon: Ticket, gradient: 'var(--gradient-accent)', glow: 'hsla(350, 65%, 46%, 0.2)', dark: false },
+  { icon: Ticket, gradient: 'var(--gradient-accent)', glow: 'hsla(28, 68%, 52%, 0.2)', dark: true },
   { icon: IndianRupee, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)', dark: false },
   { icon: Users, gradient: 'linear-gradient(135deg, hsl(200, 70%, 48%), hsl(210, 66%, 40%))', glow: 'hsla(200, 70%, 48%, 0.2)', dark: false },
 ];

@@ -12,13 +12,13 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Outfit", "system-ui", "sans-serif"],
-        heading: ["Outfit", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        heading: ["Inter", "system-ui", "sans-serif"],
         // The app's one display voice — event titles, page headlines, the
         // brand wordmark. Reserved for genuine "marquee" moments; dense UI
-        // (dashboards, forms, tables) stays on font-heading (Outfit) for
+        // (dashboards, forms, tables) stays on font-heading (Inter) for
         // scanability. See src/index.css for the shared tracking/weight rules.
-        display: ["Fraunces", "Georgia", "serif"],
+        display: ["Instrument Serif", "Georgia", "serif"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
       colors: {
@@ -65,13 +65,13 @@ export default {
         'glow': '0 0 30px -5px hsla(38, 82%, 52%, 0.28)',
       },
       keyframes: {
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
-          "50%": { opacity: "0.8", transform: "scale(1.05)" },
+        "fade-rise": {
+          from: { opacity: "0", transform: "translateY(24px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
-        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "fade-rise": "fade-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
     },
   },

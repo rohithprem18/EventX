@@ -9,7 +9,7 @@ import { generateTicketPDF } from '@/utils/generateTicketPDF';
 
 const statIcons = [
   { icon: ShoppingBag, gradient: 'var(--gradient-primary)', glow: 'hsla(38, 80%, 50%, 0.2)', dark: true },
-  { icon: CreditCard, gradient: 'var(--gradient-accent)', glow: 'hsla(350, 65%, 46%, 0.2)', dark: false },
+  { icon: CreditCard, gradient: 'var(--gradient-accent)', glow: 'hsla(28, 68%, 52%, 0.2)', dark: true },
   { icon: TrendingUp, gradient: 'var(--gradient-success)', glow: 'hsla(155, 72%, 48%, 0.2)', dark: false },
 ];
 

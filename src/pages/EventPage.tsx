@@ -39,7 +39,7 @@ const EventPage = () => {
       <div className="h-72 md:h-96 relative overflow-hidden">
         <img src={event.bannerUrl} alt={event.title} className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{
-          background: `linear-gradient(to top, hsl(225, 30%, 6%) 0%, hsla(225, 30%, 6%, 0.7) 40%, hsla(225, 30%, 6%, 0.3) 70%, transparent 100%)`,
+          background: `linear-gradient(to top, hsl(201, 45%, 6%) 0%, hsla(201, 45%, 6%, 0.7) 40%, hsla(201, 45%, 6%, 0.3) 70%, transparent 100%)`,
         }} />
         <div className="container mx-auto px-4 relative z-10 h-full flex items-end pb-8">
           <button
@@ -49,7 +49,7 @@ const EventPage = () => {
               // Always white — this button floats over the banner photo,
               // independent of the app's light/dark surface colors.
               color: '#fff',
-              background: 'hsla(225, 30%, 6%, 0.45)',
+              background: 'hsla(201, 45%, 6%, 0.45)',
               backdropFilter: 'blur(12px)',
               border: '1px solid hsla(0, 0%, 100%, 0.15)',
             }}
@@ -70,7 +70,7 @@ const EventPage = () => {
               }}>
                 {event.category}
               </span>
-              <h1 className="font-display text-3xl md:text-5xl font-bold mt-4 leading-tight">{event.title}</h1>
+              <h1 className="font-display text-3xl md:text-5xl mt-4 leading-tight">{event.title}</h1>
             </div>
 
             <div className="flex flex-wrap gap-5 text-muted-foreground text-sm">
