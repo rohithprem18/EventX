@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import HomePage from "@/pages/HomePage";
+import EventsPage from "@/pages/EventsPage";
 import EventPage from "@/pages/EventPage";
 import BookingPage from "@/pages/BookingPage";
 import UserDashboard from "@/pages/UserDashboard";
@@ -25,6 +26,7 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/events" element={<EventsPage />} />
         <Route path="/event/:id" element={<EventPage />} />
         <Route path="/booking/:id" element={<BookingPage />} />
         <Route path="/dashboard" element={<UserDashboard />} />

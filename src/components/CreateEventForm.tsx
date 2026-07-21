@@ -94,7 +94,7 @@ const CreateEventForm = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: 'hsl(222 47% 11% / 0.4)' }}
+      style={{ background: 'hsl(201 55% 6% / 0.55)', backdropFilter: 'blur(4px)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <motion.div

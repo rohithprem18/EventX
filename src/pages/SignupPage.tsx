@@ -3,7 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { AnimatedPage } from '@/components/AnimatedPage';
 import { motion } from 'framer-motion';
-import { Ticket, Eye, EyeOff, ArrowRight, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight } from 'lucide-react';
+
+// Seeded Picsum photograph, distinct from the login panel's — a still frame
+// rather than a decorative blur/orb treatment.
+const panelImage = 'https://picsum.photos/seed/eventx-signup-crowd/1200/1600';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -23,52 +27,39 @@ const SignupPage = () => {
     setSubmitting(true);
     const result = await signup(name.trim(), email.trim(), password);
     setSubmitting(false);
-    if (result.success) navigate('/');
+    if (result.success) navigate('/events');
     else setError(result.error || 'Sign up failed');
   };
 
   return (
     <AnimatedPage className="min-h-screen flex pt-16">
-      {/* Left atmospheric panel */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center" style={{
-        background: 'hsla(225, 30%, 5%, 0.9)',
-      }}>
-        {/* Animated orbs */}
-        <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full opacity-[0.1] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(350, 65%, 46%)' }} />
-        <div className="absolute bottom-1/4 left-1/3 w-[250px] h-[250px] rounded-full opacity-[0.08] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(38, 80%, 50%)', animationDelay: '2s' }} />
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
-            backgroundSize: '30px 30px',
-          }} />
-
-        <div className="relative z-10 text-center px-12">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8"
-            style={{ background: 'var(--gradient-accent)', boxShadow: '0 0 40px -5px hsla(350, 65%, 46%, 0.4)' }}>
-            <Sparkles className="w-8 h-8 text-white" />
-          </div>
-          {/* Deliberate dark brand panel within the light theme (see note
-              below) — hardcode a light wordmark instead of the (now dark)
-              --foreground token. */}
-          <h2 className="font-display text-4xl font-bold mb-4" style={{ color: '#fff' }}>Join EventX</h2>
-          {/* Deliberate dark brand panel within the light theme — hardcode
-              light copy instead of the (now dark) --muted-foreground token. */}
-          <p className="text-lg leading-relaxed max-w-sm mx-auto" style={{ color: 'hsla(220, 20%, 92%, 0.75)' }}>
-            Create your account and start booking tickets to the most exciting events around you.
+      {/* Left panel — a real still, not a decorative blur/orb treatment */}
+      <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
+        <img src={panelImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(200deg, hsl(201 55% 6% / 0.35) 0%, hsl(201 55% 6% / 0.85) 100%)',
+        }} />
+        <div className="relative z-10 h-full flex flex-col justify-end px-12 pb-16">
+          <span
+            className="text-2xl text-white/90 mb-6"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+          >
+            EventX
+          </span>
+          <h2
+            className="text-4xl leading-[1.05] text-white mb-4"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+          >
+            Every event you'll<br />ever want to be at.
+          </h2>
+          <p className="text-white/65 leading-relaxed max-w-sm">
+            One account, every seat locked the moment you claim it. Sign up in seconds — this is a demo, no payment required.
           </p>
         </div>
       </div>
 
       {/* Right form panel */}
       <div className="flex-1 flex items-center justify-center px-6 py-16 relative">
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at 50% 70%, hsl(var(--accent) / 0.04), transparent 60%)',
-        }} />
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -77,15 +68,16 @@ const SignupPage = () => {
         >
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-10">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3"
-              style={{ background: 'var(--gradient-accent)' }}>
-              <Ticket className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-display text-2xl font-bold text-foreground">EventX</span>
+            <span
+              className="text-2xl text-foreground"
+              style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+            >
+              EventX
+            </span>
           </div>
 
           <div className="mb-8">
-            <h1 className="font-display text-3xl font-bold mb-2">Create account</h1>
+            <h1 className="font-display text-3xl mb-2">Create account</h1>
             <p className="text-muted-foreground">Join EventX and start booking</p>
           </div>
 
@@ -128,21 +120,8 @@ const SignupPage = () => {
 
             {error && <p className="text-sm text-destructive font-medium">{error}</p>}
 
-            <button type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-              style={{
-                background: 'var(--gradient-accent)',
-                boxShadow: '0 4px 15px -3px hsla(350, 65%, 46%, 0.4)',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 25px -3px hsla(350, 65%, 46%, 0.55)';
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px -3px hsla(350, 65%, 46%, 0.4)';
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-              }}
-            >
-              {submitting ? 'Creating account...' : (<>Create Account <ArrowRight className="w-4 h-4" /></>)}
+            <button type="submit" disabled={submitting} className="btn-primary w-full flex items-center justify-center gap-2">
+              {submitting ? 'Creating account...' : (<>Create account <ArrowRight className="w-4 h-4" /></>)}
             </button>
           </form>
 

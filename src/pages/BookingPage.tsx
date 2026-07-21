@@ -192,7 +192,7 @@ const BookingPage = () => {
               >
                 <CheckCircle2 className="w-10 h-10" style={{ color: 'hsl(155, 65%, var(--tint-fg-l))' }} />
               </motion.div>
-              <h1 className="font-display text-3xl font-bold">Booking confirmed</h1>
+              <h1 className="font-display text-3xl">Booking confirmed</h1>
               <div className="glass-card-static p-6 text-left space-y-3 rounded-xl">
                 <div className="flex justify-between"><span className="text-muted-foreground">Ticket ID</span><span className="font-mono font-bold text-primary">{ticketId}</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">Event</span><span className="font-semibold">{event.title}</span></div>
@@ -237,7 +237,7 @@ const BookingPage = () => {
               >
                 <AlertTriangle className="w-10 h-10 text-destructive animate-pulse" />
               </motion.div>
-              <h1 className="font-display text-2xl font-bold text-destructive">Booking collision detected</h1>
+              <h1 className="font-display text-2xl text-destructive">Booking collision detected</h1>
 
               <div className="glass-card-static p-6 text-left space-y-4 rounded-xl" style={{
                 border: '1px solid hsl(var(--destructive) / 0.15)',
@@ -287,7 +287,7 @@ const BookingPage = () => {
             <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <div className="flex items-center gap-3 mb-2">
                 <Armchair className="w-6 h-6 text-primary" />
-                <h1 className="font-display text-3xl font-bold">Select Your Seats</h1>
+                <h1 className="font-display text-3xl">Select Your Seats</h1>
               </div>
               <p className="text-muted-foreground mb-8 ml-9">{event.title}</p>
 

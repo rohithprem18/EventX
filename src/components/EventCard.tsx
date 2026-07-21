@@ -57,7 +57,7 @@ const EventCard = ({ event, index = 0 }: { event: Event; index?: number }) => {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
           <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to top, hsla(225, 30%, 6%, 0.85) 0%, hsla(225, 30%, 6%, 0.2) 50%, transparent 100%)',
+            background: 'linear-gradient(to top, hsla(201, 45%, 6%, 0.85) 0%, hsla(201, 45%, 6%, 0.2) 50%, transparent 100%)',
           }} />
 
           {/* Category badge */}
@@ -87,7 +87,7 @@ const EventCard = ({ event, index = 0 }: { event: Event; index?: number }) => {
 
         {/* Content */}
         <div className="p-5 space-y-3">
-          <h3 className="font-display font-semibold text-lg text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-1">
+          <h3 className="font-display text-lg text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-1">
             {event.title}
           </h3>
           <div className="flex flex-col gap-1.5 text-sm text-muted-foreground">

@@ -3,7 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { AnimatedPage } from '@/components/AnimatedPage';
 import { motion } from 'framer-motion';
-import { Ticket, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight } from 'lucide-react';
+
+// Seeded Picsum photograph, distinct from the signup panel's — a still
+// frame rather than a decorative blur/orb treatment.
+const panelImage = 'https://picsum.photos/seed/eventx-login-venue/1200/1600';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -21,54 +25,39 @@ const LoginPage = () => {
     setSubmitting(true);
     const result = await login(email.trim(), password);
     setSubmitting(false);
-    if (result.success) navigate('/');
+    if (result.success) navigate('/events');
     else setError(result.error || 'Login failed');
   };
 
   return (
     <AnimatedPage className="min-h-screen flex pt-16">
-      {/* Left atmospheric panel */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center" style={{
-        background: 'hsla(225, 30%, 5%, 0.9)',
-      }}>
-        {/* Animated orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full opacity-[0.12] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(38, 80%, 50%)' }} />
-        <div className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] rounded-full opacity-[0.08] blur-3xl animate-pulse-glow"
-          style={{ background: 'hsl(350, 65%, 46%)', animationDelay: '2s' }} />
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
-            backgroundSize: '30px 30px',
-          }} />
-
-        <div className="relative z-10 text-center px-12">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8"
-            style={{ background: 'var(--gradient-primary)', boxShadow: '0 0 40px -5px hsla(38, 80%, 50%, 0.4)' }}>
-            <Ticket className="w-8 h-8" style={{ color: 'hsl(var(--primary-foreground))' }} />
-          </div>
-          {/* This panel is a deliberate dark brand accent within the light
-              theme (see note below), so the wordmark is hardcoded light
-              rather than relying on the (now dark) --foreground token. */}
-          <h2 className="font-display text-4xl font-bold mb-4" style={{ color: '#fff' }}>EventX</h2>
-          {/* This panel is a deliberate dark brand accent within the light
-              theme, so its body copy is hardcoded light rather than using
-              the (now dark) --muted-foreground token. */}
-          <p className="text-lg leading-relaxed max-w-sm mx-auto" style={{ color: 'hsla(220, 20%, 92%, 0.75)' }}>
-            Book event tickets with lightning-fast concurrency. Your next unforgettable experience awaits.
+      {/* Left panel — a real still, not a decorative blur/orb treatment */}
+      <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
+        <img src={panelImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(200deg, hsl(201 55% 6% / 0.35) 0%, hsl(201 55% 6% / 0.85) 100%)',
+        }} />
+        <div className="relative z-10 h-full flex flex-col justify-end px-12 pb-16">
+          <span
+            className="text-2xl text-white/90 mb-6"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+          >
+            EventX
+          </span>
+          <h2
+            className="text-4xl leading-[1.05] text-white mb-4"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+          >
+            Your next unforgettable<br />night starts here.
+          </h2>
+          <p className="text-white/65 leading-relaxed max-w-sm">
+            Real-time seat locking, zero double bookings, instant e-tickets. Sign back in to pick up where you left off.
           </p>
         </div>
       </div>
 
       {/* Right form panel */}
       <div className="flex-1 flex items-center justify-center px-6 py-16 relative">
-        {/* Subtle background gradient */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--primary) / 0.04), transparent 60%)',
-        }} />
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -77,15 +66,16 @@ const LoginPage = () => {
         >
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-10">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3"
-              style={{ background: 'var(--gradient-primary)' }}>
-              <Ticket className="w-6 h-6" style={{ color: 'hsl(var(--primary-foreground))' }} />
-            </div>
-            <span className="font-display text-2xl font-bold text-foreground">EventX</span>
+            <span
+              className="text-2xl text-foreground"
+              style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+            >
+              EventX
+            </span>
           </div>
 
           <div className="mb-8">
-            <h1 className="font-display text-3xl font-bold mb-2">Welcome back</h1>
+            <h1 className="font-display text-3xl mb-2">Welcome back</h1>
             <p className="text-muted-foreground">Sign in to your EventX account</p>
           </div>
 
@@ -119,7 +109,7 @@ const LoginPage = () => {
             {error && <p className="text-sm text-destructive font-medium">{error}</p>}
 
             <button type="submit" disabled={submitting} className="btn-primary w-full flex items-center justify-center gap-2">
-              {submitting ? 'Signing in...' : (<>Sign In <ArrowRight className="w-4 h-4" /></>)}
+              {submitting ? 'Signing in...' : (<>Sign in <ArrowRight className="w-4 h-4" /></>)}
             </button>
           </form>
 
