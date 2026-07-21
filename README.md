@@ -21,7 +21,7 @@ EventX is an event ticket booking platform built around one guarantee: a seat ca
 
 | | |
 |---|---|
-| **Browse events** ![Homepage](docs/screenshots/01-homepage.jpg) | **Event detail** ![Event detail](docs/screenshots/02-event-detail.jpg) |
+| **Browse events** ![Events](docs/screenshots/01-events.jpg) | **Event detail** ![Event detail](docs/screenshots/02-event-detail.jpg) |
 | **Sign in** ![Login](docs/screenshots/03-login.jpg) | **Create account** ![Signup](docs/screenshots/04-signup.jpg) |
 | **Seat picker** ![Seat picker](docs/screenshots/05-booking-seat-picker.jpg) | **Booking confirmed** ![Booking confirmed](docs/screenshots/06-booking-confirmed.jpg) |
 | **User dashboard** ![User dashboard](docs/screenshots/07-user-dashboard.jpg) | **Admin — events** ![Admin dashboard](docs/screenshots/08-admin-dashboard.jpg) |
@@ -33,6 +33,7 @@ EventX is an event ticket booking platform built around one guarantee: a seat ca
 |---|---|
 | Concurrency-safe booking | A Postgres unique constraint rejects an already-taken seat instantly (`409`), even under simultaneous requests across serverless invocations. |
 | Live seat locks | Seat selection broadcasts a short-lived, auto-expiring hold; every connected client picks it up on its next poll. |
+| Event discovery | Cinematic single-viewport home leads into a dedicated `/events` page — search plus horizontal category filter chips, results updating in place. |
 | Booking flow | Seat picker, ticket limits, live price calculation, optimistic UI with server reconciliation. |
 | PDF e-tickets | Boarding-pass-style PDF with a scannable QR code, seat numbers, and attendee details. |
 | Authentication & roles | bcrypt-hashed passwords, signed httpOnly session cookies, protected routes, separate user and admin dashboards. |
@@ -79,6 +80,62 @@ sequenceDiagram
 
 The guarantee holds under an abandoned hold or a mid-flow failure too: Redis TTLs expire independently of whatever created them, and every multi-seat booking commits as one all-or-nothing transaction — there's no ordering for two holders to deadlock over. This was verified directly against a real local Postgres and Redis instance, not just reasoned about: two connections racing for the same seat resolve to exactly one winner, with no partial booking ever observable.
 
+## Database Schema
+
+Three tables in Postgres (Neon), created idempotently on cold start by `api/_lib/db.js`. Seat holds live in Redis, not here — they're transient by design (see above).
+
+```mermaid
+erDiagram
+    users {
+        text id PK
+        text name
+        text email UK
+        text password_hash
+        text role "user | admin"
+        timestamptz created_at
+    }
+    bookings {
+        text id PK
+        text event_id "FK to static event catalog, not a DB table"
+        text user_id
+        text user_name
+        text user_email
+        text ticket_id UK
+        integer ticket_count
+        text_array seat_numbers
+        text status "default confirmed"
+        timestamptz booked_at
+    }
+    booked_seats {
+        text event_id PK
+        text seat_id PK
+        text booking_id FK
+    }
+    users ||--o{ bookings : "books"
+    bookings ||--|{ booked_seats : "claims"
+```
+
+- **`users`** — real accounts. `email` is `UNIQUE`, so duplicate registration is rejected by Postgres itself. `password_hash` is bcrypt output, never sent to the client (`db.js` strips it outside the login path).
+- **`bookings`** — one row per checkout. `ticket_id` is the human-facing ID printed on the PDF ticket and shown in both dashboards; `seat_numbers` is a Postgres `TEXT[]`, so a multi-seat booking is still one row.
+- **`booked_seats`** — the concurrency guarantee itself. Composite primary key `(event_id, seat_id)` means a second `INSERT` for an already-claimed seat is rejected with a `23505 unique_violation` before it can ever reach `bookings`; `ON DELETE CASCADE` from `bookings` keeps the two tables consistent if a booking is ever removed.
+- Events themselves aren't a database table — the catalog is static seed data shipped with the client (see `src/data/`), so `event_id` is a plain string with no FK enforcement, not a schema oversight.
+
+## API Endpoints
+
+All routes are Vercel serverless functions under `api/`, deployed as individual functions. Auth endpoints set/clear an `HttpOnly` session cookie; everything else is stateless.
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | — | Create an account (bcrypt-hash the password, reject duplicate email with `409`), sign in immediately. |
+| `POST` | `/api/auth/login` | — | Verify credentials, set the session cookie. Same generic `401` for a wrong password or an unknown email. |
+| `POST` | `/api/auth/logout` | — | Clear the session cookie. |
+| `GET` | `/api/auth/me` | cookie | Current session's user, or `{ user: null }` — never errors just for being logged out. |
+| `GET` | `/api/state` | — | Polled every ~2s by the client: all bookings plus all active Redis seat locks, in one payload, so the UI can reconcile without a persistent connection. |
+| `POST` | `/api/lock` | — | Acquire a short-lived hold (`SET NX PX 120000`, 2 min TTL) on the seats a user has selected. |
+| `POST` | `/api/unlock` | — | Release a user's held seats early (e.g. they navigate away or clear their selection). |
+| `POST` | `/api/book` | — | Commit a booking inside one Postgres transaction. `409` with `{ seats, bookedBy }` on a real seat collision; on success, also clears that user's Redis locks server-side. |
+| `GET` | `/api/health` | — | Liveness probe — `{ ok: true }`, no dependency checks. |
+
 ## Authentication
 
 Real accounts, backed by a `users` table in the same Postgres database.
@@ -93,7 +150,7 @@ Real accounts, backed by a `users` table in the same Postgres database.
 | Layer | Technologies |
 |---|---|
 | Frontend | React 18, TypeScript, Vite, React Router |
-| UI | Tailwind CSS, Framer Motion, self-hosted Outfit / JetBrains Mono |
+| UI | Tailwind CSS, Framer Motion, self-hosted Instrument Serif (display) / Inter (body) |
 | Backend | Vercel Serverless Functions, Node.js |
 | Data | Postgres via [Neon](https://neon.tech) — bookings, users, the double-booking constraint · Redis via [Upstash](https://upstash.com) — seat locks |
 | Auth | `bcryptjs`, `jose` (JWT sessions) |
