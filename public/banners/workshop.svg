@@ -1,0 +1,57 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sunrise over the Himalayan foothills, meditating silhouette, lotus motif">
+  <title>Workshop — riverside sunrise, meditation &amp; learning retreat</title>
+  <defs>
+    <linearGradient id="dawnSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2A1330"/>
+      <stop offset="35%" stop-color="#7A2A3A"/>
+      <stop offset="65%" stop-color="#D97A3E"/>
+      <stop offset="100%" stop-color="#F0C56A"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FDF3E1"/>
+      <stop offset="60%" stop-color="#E2A13A"/>
+      <stop offset="100%" stop-color="#E2A13A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0C56A" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#7A2A3A" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#dawnSky)"/>
+  <circle cx="800" cy="520" r="220" fill="url(#sun)"/>
+
+  <!-- distant hills, layered -->
+  <path d="M0,560 Q300,480 600,560 Q900,470 1200,560 Q1400,500 1600,560 L1600,700 L0,700 Z" fill="#4A1E33" opacity="0.55"/>
+  <path d="M0,620 Q400,540 800,620 Q1200,540 1600,620 L1600,760 L0,760 Z" fill="#33172B" opacity="0.75"/>
+
+  <!-- river reflecting the sunrise -->
+  <rect x="0" y="700" width="1600" height="300" fill="url(#river)"/>
+  <g stroke="#FDF3E1" stroke-width="3" opacity="0.3">
+    <line x1="0" y1="760" x2="1600" y2="760"/>
+    <line x1="0" y1="820" x2="1600" y2="820"/>
+    <line x1="0" y1="880" x2="1600" y2="880"/>
+  </g>
+
+  <!-- meditating silhouette, lotus position, on a riverside ghat step -->
+  <g transform="translate(800,760)" fill="#20101A">
+    <rect x="-140" y="70" width="280" height="30" rx="4"/>
+    <path d="M0,-150 Q-14,-150 -18,-120 Q-40,-110 -46,-80 L-90,-40 Q-100,-20 -80,-14 Q-60,-8 -50,-30 L-24,-60 Q-30,-10 -34,40 L-70,60 Q-90,66 -84,80 L84,80 Q90,66 70,60 L34,40 Q30,-10 24,-60 L50,-30 Q60,-8 80,-14 Q100,-20 90,-40 L46,-80 Q40,-110 18,-120 Q14,-150 0,-150 Z"/>
+    <circle cx="0" cy="-168" r="20"/>
+  </g>
+
+  <!-- lotus motif, foreground left -->
+  <g transform="translate(220,900)" opacity="0.9">
+    <path d="M0,0 Q-40,-40 -20,-90 Q0,-60 0,0 Z" fill="#E2A13A"/>
+    <path d="M0,0 Q40,-40 20,-90 Q0,-60 0,0 Z" fill="#C12942"/>
+    <path d="M0,0 Q-60,-20 -70,-60 Q-30,-50 0,0 Z" fill="#E2A13A" opacity="0.85"/>
+    <path d="M0,0 Q60,-20 70,-60 Q30,-50 0,0 Z" fill="#C12942" opacity="0.85"/>
+    <path d="M0,0 Q0,-70 0,-110 Q10,-60 0,0 Z" fill="#FDE7B0"/>
+    <ellipse cx="0" cy="4" rx="90" ry="14" fill="#20101A" opacity="0.4"/>
+  </g>
+  <g transform="translate(1380,940) scale(0.7)" opacity="0.7">
+    <path d="M0,0 Q-40,-40 -20,-90 Q0,-60 0,0 Z" fill="#E2A13A"/>
+    <path d="M0,0 Q40,-40 20,-90 Q0,-60 0,0 Z" fill="#C12942"/>
+    <path d="M0,0 Q0,-70 0,-110 Q10,-60 0,0 Z" fill="#FDE7B0"/>
+  </g>
+</svg>

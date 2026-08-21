@@ -1,0 +1,63 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cricket stadium under floodlights, packed stands">
+  <title>Sports — cricket stadium, floodlights</title>
+  <defs>
+    <linearGradient id="stadiumSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060A16"/>
+      <stop offset="60%" stop-color="#0C1730"/>
+      <stop offset="100%" stop-color="#152548"/>
+    </linearGradient>
+    <radialGradient id="floodCone" cx="50%" cy="0%" r="75%">
+      <stop offset="0%" stop-color="#FDE7B0" stop-opacity="0.85"/>
+      <stop offset="55%" stop-color="#E2A13A" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#E2A13A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pitchGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#173A22"/>
+      <stop offset="100%" stop-color="#0C2015"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#stadiumSky)"/>
+
+  <!-- floodlight towers + cones -->
+  <g>
+    <polygon points="180,0 400,0 470,760 110,760" fill="url(#floodCone)"/>
+    <polygon points="1200,0 1420,0 1490,760 1130,760" fill="url(#floodCone)"/>
+    <rect x="280" y="0" width="20" height="230" fill="#060A16"/>
+    <rect x="1300" y="0" width="20" height="230" fill="#060A16"/>
+    <rect x="230" y="0" width="120" height="26" fill="#0C1730"/>
+    <rect x="1250" y="0" width="120" height="26" fill="#0C1730"/>
+  </g>
+
+  <!-- stadium bowl, tiered stands with crowd texture -->
+  <g>
+    <path d="M0,620 Q800,460 1600,620 L1600,760 Q800,600 0,760 Z" fill="#0A1224"/>
+    <path d="M0,760 Q800,600 1600,760 L1600,900 Q800,740 0,900 Z" fill="#0D172C"/>
+    <!-- crowd dot texture -->
+    <g fill="#E2A13A" opacity="0.28">
+      <circle cx="140" cy="700" r="4"/><circle cx="200" cy="690" r="4"/><circle cx="260" cy="680" r="4"/><circle cx="320" cy="675" r="4"/>
+      <circle cx="420" cy="660" r="4"/><circle cx="520" cy="650" r="4"/><circle cx="620" cy="645" r="4"/><circle cx="720" cy="640" r="4"/>
+      <circle cx="880" cy="640" r="4"/><circle cx="980" cy="645" r="4"/><circle cx="1080" cy="650" r="4"/><circle cx="1180" cy="660" r="4"/>
+      <circle cx="1280" cy="675" r="4"/><circle cx="1340" cy="680" r="4"/><circle cx="1400" cy="690" r="4"/><circle cx="1460" cy="700" r="4"/>
+      <circle cx="100" cy="820" r="4"/><circle cx="240" cy="800" r="4"/><circle cx="380" cy="790" r="4"/><circle cx="520" cy="780" r="4"/>
+      <circle cx="660" cy="775" r="4"/><circle cx="800" cy="770" r="4"/><circle cx="940" cy="775" r="4"/><circle cx="1080" cy="780" r="4"/>
+      <circle cx="1220" cy="790" r="4"/><circle cx="1360" cy="800" r="4"/><circle cx="1500" cy="820" r="4"/>
+    </g>
+  </g>
+
+  <!-- pitch -->
+  <ellipse cx="800" cy="960" rx="560" ry="90" fill="url(#pitchGreen)"/>
+  <ellipse cx="800" cy="960" rx="560" ry="90" fill="none" stroke="#E2A13A" stroke-width="3" opacity="0.4"/>
+
+  <!-- stumps + bails, foreground, gold rim-light -->
+  <g transform="translate(800,900)">
+    <rect x="-30" y="-70" width="7" height="70" fill="#0A0509"/>
+    <rect x="0" y="-70" width="7" height="70" fill="#0A0509"/>
+    <rect x="30" y="-70" width="7" height="70" fill="#0A0509"/>
+    <rect x="-32" y="-76" width="30" height="6" fill="#0A0509"/>
+    <rect x="2" y="-76" width="30" height="6" fill="#0A0509"/>
+    <rect x="-30" y="-70" width="3" height="70" fill="#E2A13A" opacity="0.6"/>
+    <rect x="0" y="-70" width="3" height="70" fill="#E2A13A" opacity="0.6"/>
+    <rect x="30" y="-70" width="3" height="70" fill="#E2A13A" opacity="0.6"/>
+  </g>
+</svg>
