@@ -55,7 +55,9 @@ const getInitialBookings = (): BookingRecord[] => {
   try {
     const raw = localStorage.getItem(BOOKINGS_STORAGE_KEY);
     if (raw) return JSON.parse(raw);
-  } catch {}
+  } catch {
+    // Corrupt stored JSON: ignore it and fall back to the seed data below.
+  }
   return seedBookings;
 };
 
@@ -63,7 +65,9 @@ const getInitialLocks = (): SeatLock[] => {
   try {
     const raw = localStorage.getItem(LOCKS_STORAGE_KEY);
     if (raw) return JSON.parse(raw);
-  } catch {}
+  } catch {
+    // Corrupt stored JSON: ignore it and start with no locks.
+  }
   return [];
 };
 
@@ -110,12 +114,16 @@ export const BookingStoreProvider = ({ children }: { children: ReactNode }) => {
         try {
           const updated = e.newValue ? JSON.parse(e.newValue) : getInitialBookings();
           setBookings(updated);
-        } catch {}
+        } catch {
+          // Malformed payload from another tab: keep the bookings already in state.
+        }
       } else if (e.key === LOCKS_STORAGE_KEY) {
         try {
           const updatedLocks = e.newValue ? JSON.parse(e.newValue) : getInitialLocks();
           setLocks(updatedLocks);
-        } catch {}
+        } catch {
+          // Malformed payload from another tab: keep the locks already in state.
+        }
       }
     };
 
