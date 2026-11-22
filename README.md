@@ -191,10 +191,11 @@ Thanks to everyone who has helped build this project!
   <tbody>
     <tr>
       <td align="center" valign="top" width="14%"><a href="https://github.com/rohithprem18"><img src="https://avatars.githubusercontent.com/u/146315115?v=4&s=100" width="80" height="80" alt="rohithprem18"/><br /><sub><b>rohithprem18</b></sub></a><br /><sub>17 commits</sub></td>
+      <td align="center" valign="top" width="14%"><a href="https://github.com/DeviousCardi"><img src="https://avatars.githubusercontent.com/u/115358213?v=4&s=100" width="80" height="80" alt="DeviousCardi"/><br /><sub><b>DeviousCardi</b></sub></a><br /><sub>2 commits</sub></td>
     </tr>
   </tbody>
 </table>
-<p><sub>1 contributor so far. This list updates automatically after every merged pull request.</sub></p>
+<p><sub>2 contributors so far. This list updates automatically after every merged pull request.</sub></p>
 <!-- CONTRIBUTORS:END -->
 
 ## License
