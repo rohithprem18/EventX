@@ -194,13 +194,13 @@ const AdminDashboard = () => {
                       <td className="p-3 text-right text-sm">{event.availableTickets}/{event.totalTickets}</td>
                       <td className="p-3 text-right">
                         <div className="flex items-center justify-end gap-1">
-                          <button onClick={() => navigate(`/event/${event.id}`)} className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all" title="View">
+                          <button onClick={() => navigate(`/event/${event.id}`)} className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all" title="View" aria-label="View event">
                             <Eye className="w-3.5 h-3.5" />
                           </button>
-                          <button onClick={() => handleEdit(event)} className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Edit">
+                          <button onClick={() => handleEdit(event)} className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Edit" aria-label="Edit event">
                             <Pencil className="w-3.5 h-3.5" />
                           </button>
-                          <button onClick={() => handleDelete(event.id)} className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all" title="Delete">
+                          <button onClick={() => handleDelete(event.id)} className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all" title="Delete" aria-label="Delete event">
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
                       <p className="text-xs text-muted-foreground">{format(new Date(event.date), 'MMM dd')} · {event.venue}</p>
                     </div>
                     <div className="relative shrink-0">
-                      <button onClick={() => setActiveMenu(activeMenu === event.id ? null : event.id)} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
+                      <button onClick={() => setActiveMenu(activeMenu === event.id ? null : event.id)} aria-label="Event actions" aria-haspopup="true" aria-expanded={activeMenu === event.id} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
                         <MoreVertical className="w-4 h-4 text-muted-foreground" />
                       </button>
                       {activeMenu === event.id && (
