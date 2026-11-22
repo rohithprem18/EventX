@@ -24,6 +24,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # `npm run lint` joins this job once the existing ESLint errors are fixed (see the good first issues).
+      - run: npm run lint
       - run: npm test
       - run: npm run build
