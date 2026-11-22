@@ -6,6 +6,7 @@
  * paths — no separate API base URL to configure.
  * Automatically falls back to local storage locking if the backend is down.
  */
+import type { SeatLock } from "@/hooks/useBookingStore";
 
 export const lockSeats = async (
   eventId: string,
@@ -27,12 +28,12 @@ export const lockSeats = async (
   const now = Date.now();
   try {
     const raw = localStorage.getItem('seat-locks');
-    const allLocks = raw ? JSON.parse(raw) : [];
-    
+    const allLocks: SeatLock[] = raw ? JSON.parse(raw) : [];
+
     // Filter out expired locks and this user's old locks for the event
     const cleaned = allLocks.filter(
-      (lock: any) =>
-        lock.expiresAt > now &&
+      (lock: SeatLock) =>
+        (lock.expiresAt ?? 0) > now &&
         !(lock.eventId === eventId && lock.userId === userId)
     );
 
@@ -70,9 +71,9 @@ export const unlockSeats = async (eventId: string, userId: string): Promise<void
   try {
     const raw = localStorage.getItem('seat-locks');
     if (!raw) return;
-    const allLocks = JSON.parse(raw);
+    const allLocks: SeatLock[] = JSON.parse(raw);
     const filtered = allLocks.filter(
-      (lock: any) => !(lock.eventId === eventId && lock.userId === userId)
+      (lock: SeatLock) => !(lock.eventId === eventId && lock.userId === userId)
     );
     localStorage.setItem('seat-locks', JSON.stringify(filtered));
     window.dispatchEvent(new StorageEvent('storage', { key: 'seat-locks', newValue: JSON.stringify(filtered) }));
