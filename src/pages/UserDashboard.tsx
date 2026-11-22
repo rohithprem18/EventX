@@ -128,6 +128,7 @@ const UserDashboard = () => {
                           });
                         }}
                         className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-200"
+                        aria-label="Download ticket PDF"
                         style={{
                           border: '1px solid hsl(var(--border))',
                         }}

@@ -105,7 +105,7 @@ const CreateEventForm = ({
       >
         <div className="flex items-center justify-between mb-5">
           <h2 className="font-heading text-lg font-bold">{editEvent ? 'Edit Event' : 'Create New Event'}</h2>
-          <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
+          <button onClick={onClose} aria-label="Close form" className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>

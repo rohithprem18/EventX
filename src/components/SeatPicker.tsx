@@ -47,6 +47,20 @@ const SeatPicker = ({
     [selectedSeats, maxSelectable, bookedSet, pendingSet, onSelectionChange]
   );
 
+  // Seats are real <button type="button">, so Tab reaches them and Enter/Space
+  // activate them natively; this handler makes the keyboard path explicit and
+  // canceling the keydown prevents a double activation from the native click.
+  const handleSeatKeyDown = useCallback(
+    (event: React.KeyboardEvent, seatId: string, disabled: boolean) => {
+      if (disabled) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        handleSeatClick(seatId);
+      }
+    },
+    [handleSeatClick]
+  );
+
   const getSeatStatus = (seatId: string): 'available' | 'selected' | 'booked' | 'pending' => {
     if (bookedSet.has(seatId)) return 'booked';
     if (pendingSet.has(seatId)) return 'pending';
@@ -141,7 +155,18 @@ const SeatPicker = ({
                       key={seatId}
                       type="button"
                       onClick={() => handleSeatClick(seatId)}
+                      onKeyDown={(e) => handleSeatKeyDown(e, seatId, isDisabled)}
                       disabled={isDisabled}
+                      aria-label={
+                        status === 'booked'
+                          ? `Seat ${seatId}, booked`
+                          : status === 'pending'
+                          ? `Seat ${seatId}, locked by another user`
+                          : status === 'selected'
+                          ? `Seat ${seatId}, selected`
+                          : `Seat ${seatId}, available`
+                      }
+                      aria-pressed={status === 'selected'}
                       whileTap={!isDisabled ? { scale: 0.85 } : undefined}
                       whileHover={!isDisabled ? { scale: 1.1 } : undefined}
                       className={`

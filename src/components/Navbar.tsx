@@ -142,6 +142,7 @@ const Navbar = () => {
                 onClick={handleLogout}
                 className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
                 title="Sign out"
+                aria-label="Sign out"
               >
                 <LogOut className="w-4 h-4" />
               </button>
